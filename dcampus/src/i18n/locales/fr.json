@@ -1,0 +1,105 @@
+{
+  "app": {
+    "name": "Dataverse Campus",
+    "tagline": "Plateforme académique alimentée par l'IA"
+  },
+  "auth": {
+    "login": "Se connecter",
+    "register": "S'inscrire",
+    "logout": "Déconnexion",
+    "email": "Adresse e-mail",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "forgotPassword": "Mot de passe oublié ?",
+    "noAccount": "Pas de compte ? Inscrivez-vous",
+    "haveAccount": "Vous avez déjà un compte ? Connectez-vous",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "role": "Rôle",
+    "student": "Étudiant",
+    "faculty": "Enseignant",
+    "administrator": "Administrateur",
+    "department": "Département",
+    "studentId": "Numéro d'étudiant",
+    "facultyId": "ID d'enseignant",
+    "loginTitle": "Bienvenue sur Dataverse Campus",
+    "loginSubtitle": "Connectez-vous pour accéder à la plateforme académique alimentée par l'IA",
+    "registerTitle": "Rejoignez Dataverse Campus",
+    "registerSubtitle": "Créez votre compte pour accéder à la plateforme académique alimentée par l'IA",
+    "rememberMe": "Se souvenir de moi"
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "greeting": {
+      "morning": "Bonjour",
+      "afternoon": "Bon après-midi",
+      "evening": "Bonsoir"
+    },
+    "welcomeMessage": "Bienvenue sur votre tableau de bord DCampus",
+    "academicPerformance": "Performance académique",
+    "aiInsights": "Aperçus IA",
+    "recentActivity": "Activité récente",
+    "upcomingEvents": "Événements à venir",
+    "viewAll": "Voir tout"
+  },
+  "metrics": {
+    "student": {
+      "activeCourses": "Cours actifs",
+      "assignmentsDue": "Devoirs à rendre",
+      "currentGPA": "Moyenne actuelle",
+      "upcomingEvents": "Événements à venir"
+    },
+    "faculty": {
+      "coursesTeaching": "Cours enseignés",
+      "assignmentsToGrade": "Devoirs à noter",
+      "totalStudents": "Total des étudiants",
+      "upcomingEvents": "Événements à venir"
+    },
+    "administrator": {
+      "activeUsers": "Utilisateurs actifs",
+      "activeCourses": "Cours actifs",
+      "resourcesUsed": "Ressources utilisées",
+      "upcomingEvents": "Événements à venir"
+    }
+  },
+  "navigation": {
+    "dashboard": "Tableau de bord",
+    "courses": "Mes cours",
+    "courseManagement": "Gestion des cours",
+    "events": "Événements",
+    "eventManagement": "Gestion des événements",
+    "userManagement": "Gestion des utilisateurs",
+    "profile": "Profil",
+    "settings": "Paramètres",
+    "notifications": "Notifications"
+  },
+  "charts": {
+    "line": "Ligne",
+    "bar": "Barre",
+    "week": "Semaine",
+    "month": "Mois",
+    "semester": "Semestre"
+  },
+  "events": {
+    "register": "S'inscrire",
+    "registered": "Inscrit",
+    "location": "Lieu",
+    "date": "Date",
+    "time": "Heure"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "success": "Succès",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "submit": "Soumettre",
+    "view": "Voir"
+  },
+  "insights": {
+    "relevantScore": "% pertinent",
+    "viewAll": "Voir tous les aperçus"
+  }
+}

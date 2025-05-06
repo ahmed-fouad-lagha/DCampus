@@ -1,0 +1,105 @@
+{
+  "app": {
+    "name": "منصة داتافرس",
+    "tagline": "منصة أكاديمية مدعومة بالذكاء الاصطناعي"
+  },
+  "auth": {
+    "login": "تسجيل الدخول",
+    "register": "إنشاء حساب",
+    "logout": "تسجيل الخروج",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "forgotPassword": "نسيت كلمة المرور؟",
+    "noAccount": "ليس لديك حساب؟ سجل الآن",
+    "haveAccount": "لديك حساب بالفعل؟ سجل دخولك",
+    "firstName": "الاسم الأول",
+    "lastName": "اسم العائلة",
+    "role": "الدور",
+    "student": "طالب",
+    "faculty": "أستاذ",
+    "administrator": "مسؤول",
+    "department": "القسم",
+    "studentId": "رقم الطالب",
+    "facultyId": "رقم الأستاذ",
+    "loginTitle": "مرحبًا بك في منصة داتافرس",
+    "loginSubtitle": "سجل دخولك للوصول إلى المنصة الأكاديمية المدعومة بالذكاء الاصطناعي",
+    "registerTitle": "انضم إلى منصة داتافرس",
+    "registerSubtitle": "أنشئ حسابك للوصول إلى المنصة الأكاديمية المدعومة بالذكاء الاصطناعي",
+    "rememberMe": "تذكرني"
+  },
+  "dashboard": {
+    "title": "لوحة المعلومات",
+    "greeting": {
+      "morning": "صباح الخير",
+      "afternoon": "مساء الخير",
+      "evening": "مساء الخير"
+    },
+    "welcomeMessage": "مرحبًا بك في لوحة معلومات داتافرس",
+    "academicPerformance": "الأداء الأكاديمي",
+    "aiInsights": "رؤى الذكاء الاصطناعي",
+    "recentActivity": "النشاط الحديث",
+    "upcomingEvents": "الفعاليات القادمة",
+    "viewAll": "عرض الكل"
+  },
+  "metrics": {
+    "student": {
+      "activeCourses": "المقررات النشطة",
+      "assignmentsDue": "الواجبات المستحقة",
+      "currentGPA": "المعدل التراكمي الحالي",
+      "upcomingEvents": "الفعاليات القادمة"
+    },
+    "faculty": {
+      "coursesTeaching": "المقررات التي أدرسها",
+      "assignmentsToGrade": "الواجبات للتصحيح",
+      "totalStudents": "إجمالي الطلاب",
+      "upcomingEvents": "الفعاليات القادمة"
+    },
+    "administrator": {
+      "activeUsers": "المستخدمون النشطون",
+      "activeCourses": "المقررات النشطة",
+      "resourcesUsed": "الموارد المستخدمة",
+      "upcomingEvents": "الفعاليات القادمة"
+    }
+  },
+  "navigation": {
+    "dashboard": "لوحة المعلومات",
+    "courses": "مقرراتي",
+    "courseManagement": "إدارة المقررات",
+    "events": "الفعاليات",
+    "eventManagement": "إدارة الفعاليات",
+    "userManagement": "إدارة المستخدمين",
+    "profile": "الملف الشخصي",
+    "settings": "الإعدادات",
+    "notifications": "الإشعارات"
+  },
+  "charts": {
+    "line": "خط",
+    "bar": "شريط",
+    "week": "أسبوع",
+    "month": "شهر",
+    "semester": "فصل دراسي"
+  },
+  "events": {
+    "register": "تسجيل",
+    "registered": "مسجل",
+    "location": "الموقع",
+    "date": "التاريخ",
+    "time": "الوقت"
+  },
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "success": "تم بنجاح",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "submit": "إرسال",
+    "view": "عرض"
+  },
+  "insights": {
+    "relevantScore": "% ملائم",
+    "viewAll": "عرض جميع الرؤى"
+  }
+}

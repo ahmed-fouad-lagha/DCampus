@@ -1,0 +1,140 @@
+{
+  "app": {
+    "name": "Dataverse Campus",
+    "tagline": "AI-powered academic platform"
+  },
+  "theme": {
+    "switchToDark": "Switch to Dark Mode",
+    "switchToLight": "Switch to Light Mode",
+    "preferences": "Theme Preferences",
+    "system": "Use System Preference",
+    "light": "Light Mode",
+    "dark": "Dark Mode"
+  },
+  "auth": {
+    "login": "Sign in",
+    "register": "Sign up",
+    "logout": "Logout",
+    "email": "Email Address",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account? Sign Up",
+    "haveAccount": "Already have an account? Sign in",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "role": "Role",
+    "student": "Student",
+    "faculty": "Faculty",
+    "administrator": "Administrator",
+    "department": "Department",
+    "studentId": "Student ID",
+    "facultyId": "Faculty ID",
+    "loginTitle": "Welcome to Dataverse Campus",
+    "loginSubtitle": "Sign in to access the AI-powered academic platform",
+    "registerTitle": "Join Dataverse Campus",
+    "registerSubtitle": "Create your account to access the AI-powered academic platform",
+    "rememberMe": "Remember me"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "greeting": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening"
+    },
+    "welcomeMessage": "Welcome to your DCampus dashboard",
+    "academicPerformance": "Academic Performance",
+    "aiInsights": "AI Insights",
+    "recentActivity": "Recent Activity",
+    "upcomingEvents": "Upcoming Events",
+    "viewAll": "View All"
+  },
+  "metrics": {
+    "student": {
+      "activeCourses": "Active Courses",
+      "assignmentsDue": "Assignments Due",
+      "currentGPA": "Current GPA",
+      "upcomingEvents": "Upcoming Events"
+    },
+    "faculty": {
+      "coursesTeaching": "Courses Teaching",
+      "assignmentsToGrade": "Assignments to Grade",
+      "totalStudents": "Total Students",
+      "upcomingEvents": "Upcoming Events"
+    },
+    "administrator": {
+      "activeUsers": "Active Users",
+      "activeCourses": "Active Courses",
+      "resourcesUsed": "Resources Used",
+      "upcomingEvents": "Upcoming Events"
+    }
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "courses": "My Courses",
+    "courseManagement": "Course Management",
+    "events": "Events",
+    "eventManagement": "Event Management",
+    "userManagement": "User Management",
+    "profile": "Profile",
+    "settings": "Settings",
+    "notifications": "Notifications"
+  },
+  "charts": {
+    "line": "Line",
+    "bar": "Bar",
+    "week": "Week",
+    "month": "Month",
+    "semester": "Semester"
+  },
+  "events": {
+    "register": "Register",
+    "registered": "Registered",
+    "location": "Location",
+    "date": "Date",
+    "time": "Time"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "submit": "Submit",
+    "view": "View"
+  },
+  "insights": {
+    "relevantScore": "% relevant",
+    "viewAll": "View All Insights"
+  },
+  "search": {
+    "placeholder": "Search courses, events...",
+    "noResults": "No results found",
+    "recentSearches": "Recent searches",
+    "clear": "Clear",
+    "categories": {
+      "course": "Course",
+      "event": "Event",
+      "announcement": "Announcement",
+      "user": "User"
+    }
+  },
+  "pwa": {
+    "newVersionAvailable": "New version available",
+    "reload": "Reload",
+    "offlineReady": "App is ready to work offline"
+  },
+  "errors": {
+    "oops": "Oops!",
+    "somethingWentWrong": "Something went wrong",
+    "tryAgainLater": "Please try again later or contact support if the problem persists.",
+    "reload": "Reload page",
+    "goToHomepage": "Go to homepage",
+    "pageNotFound": "Page not found",
+    "pageNotFoundMessage": "The page you're looking for doesn't exist or has been moved.",
+    "backToHome": "Back to home"
+  }
+}
