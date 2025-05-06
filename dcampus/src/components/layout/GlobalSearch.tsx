@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { 
   Autocomplete, TextField, InputAdornment, 
   CircularProgress, Typography, Box, Paper,
@@ -11,21 +11,17 @@ import {
   Announcement as AnnouncementIcon,
   Person as UserIcon,
   ArrowForward as ArrowIcon,
-  HistoryToggleOff as RecentIcon
+  HistoryToggleOff as RecentIcon,
+  FilterAlt as FilterIcon
 } from '@mui/icons-material';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
+import debounce from 'lodash/debounce';
 
-// Define search result types
-interface SearchResult {
-  id: string;
-  title: string;
-  category: 'course' | 'event' | 'announcement' | 'user';
-  description?: string;
-  path: string;
-  icon?: React.ReactNode;
-}
+// Import search service and types
+import { search as searchService } from '../../services/searchService';
+import { SearchResult, SearchOptions } from '../../types/search.types';
 
 // Enhanced styled components
 const SearchInput = styled(TextField)(({ theme }) => ({
@@ -44,20 +40,6 @@ const SearchInput = styled(TextField)(({ theme }) => ({
       backgroundColor: theme.palette.background.paper,
       boxShadow: `0 0 0 2px ${theme.palette.primary.main}`,
     },
-  },
-}));
-
-const SearchResultItem = styled(Box)<{component?: React.ElementType}>(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: theme.spacing(1, 2),
-  borderRadius: theme.shape.borderRadius,
-  transition: theme.transitions.create(['background-color']),
-  '&:hover': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  '&:focus': {
-    backgroundColor: theme.palette.action.focus,
   },
 }));
 
@@ -88,45 +70,6 @@ const getCategoryIcon = (category: string) => {
       return <SearchIcon fontSize="small" />;
   }
 };
-
-// Mock search results - in a real app, this would come from your backend
-const mockResults: SearchResult[] = [
-  { 
-    id: 'course-1', 
-    title: 'Introduction to Computer Science', 
-    category: 'course',
-    description: 'CS101 - Basic programming concepts',
-    path: '/courses/cs101'
-  },
-  { 
-    id: 'course-2', 
-    title: 'Advanced Algorithms', 
-    category: 'course',
-    description: 'CS301 - Complex algorithm design',
-    path: '/courses/cs301'
-  },
-  { 
-    id: 'event-1', 
-    title: 'Summer Hackathon', 
-    category: 'event',
-    description: 'June 15-16, 2025',
-    path: '/events/hackathon-2025'
-  },
-  { 
-    id: 'announcement-1', 
-    title: 'Campus Closed for Holiday', 
-    category: 'announcement',
-    description: 'May 20, 2025',
-    path: '/announcements/holiday-closure'
-  },
-  { 
-    id: 'user-1', 
-    title: 'Prof. Sarah Johnson', 
-    category: 'user',
-    description: 'Faculty - Computer Science',
-    path: '/users/sjohnson'
-  }
-];
 
 // Get recent searches from localStorage
 const getRecentSearches = (): SearchResult[] => {
@@ -160,6 +103,8 @@ const GlobalSearch: React.FC = () => {
   const [recentSearches, setRecentSearches] = useState<SearchResult[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
+  // Add selectedCategories state for filtering
+  const [selectedCategories, setSelectedCategories] = useState<Array<'course' | 'event' | 'announcement' | 'user'>>([]);
   const theme = useTheme();
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -169,38 +114,62 @@ const GlobalSearch: React.FC = () => {
     setRecentSearches(getRecentSearches());
   }, []);
 
-  // Simulate API search with debounce
-  useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      if (inputValue.length > 1) {
-        setLoading(true);
+  // Create a debounced search function that properly manages dependencies
+  const performSearch = useCallback(async (query: string) => {
+    if (query.length > 1) {
+      setLoading(true);
+      
+      try {
+        // Set up search options, including category filters if selected
+        const searchOptions: SearchOptions = {
+          query,
+          limit: 10
+        };
         
-        // In a real app, this would be an API call
-        setTimeout(() => {
-          const filteredResults = mockResults.filter(item => 
-            item.title.toLowerCase().includes(inputValue.toLowerCase()) ||
-            (item.description && item.description.toLowerCase().includes(inputValue.toLowerCase()))
-          );
-          setOptions(filteredResults);
-          setLoading(false);
-        }, 300);
-      } else {
+        if (selectedCategories.length > 0) {
+          searchOptions.categories = selectedCategories;
+        }
+        
+        // Call the search service
+        const response = await searchService(searchOptions);
+        setOptions(response.results);
+      } catch (error) {
+        console.error('Search error:', error);
         setOptions([]);
+      } finally {
+        setLoading(false);
       }
+    } else {
+      setOptions([]);
+    }
+  }, [selectedCategories]);
+
+  // Use useEffect to create the debounced function instead of useCallback with debounce
+  const [debouncedSearchFn] = useState(() => {
+    return debounce((query: string) => {
+      performSearch(query);
     }, 300);
+  });
+
+  // Effect hook to trigger search when input changes
+  useEffect(() => {
+    if (inputValue.length > 1) {
+      debouncedSearchFn(inputValue);
+      setOpen(true);
+    } else {
+      setOptions([]);
+      setOpen(false);
+    }
     
-    return () => clearTimeout(timeoutId);
-  }, [inputValue]);
+    // Clean up debounced function on unmount
+    return () => {
+      debouncedSearchFn.cancel();
+    };
+  }, [inputValue, debouncedSearchFn, performSearch]);
 
   // Handle input change
   const handleInputChange = (event: React.SyntheticEvent, value: string) => {
     setInputValue(value);
-    
-    if (value.length > 1) {
-      setOpen(true);
-    } else {
-      setOpen(false);
-    }
   };
 
   // Navigate to selected item page
@@ -212,145 +181,198 @@ const GlobalSearch: React.FC = () => {
     }
   };
 
+  // Toggle category filter
+  const toggleCategoryFilter = (category: 'course' | 'event' | 'announcement' | 'user') => {
+    setSelectedCategories(prev => {
+      if (prev.includes(category)) {
+        return prev.filter(c => c !== category);
+      } else {
+        return [...prev, category];
+      }
+    });
+  };
+
   // Get the category display name
   const getCategoryName = (category: string) => {
     return t(`search.categories.${category}`);
   };
 
   return (
-    <Autocomplete
-      id="global-search"
-      sx={{ width: '100%' }}
-      open={open}
-      onOpen={() => inputValue.length > 1 && setOpen(true)}
-      onClose={() => setOpen(false)}
-      isOptionEqualToValue={(option, value) => option.id === value.id}
-      getOptionLabel={(option) => option.title}
-      options={options.length > 0 ? options : inputValue.length > 0 ? [] : recentSearches}
-      loading={loading}
-      loadingText={t('search.searching')}
-      inputValue={inputValue}
-      onInputChange={handleInputChange}
-      onChange={handleSelect}
-      filterOptions={(x) => x} // Disable built-in filtering
-      noOptionsText={inputValue.length > 0 ? t('search.noResults') : t('search.startTyping')}
-      blurOnSelect
-      clearOnBlur={false}
-      openOnFocus
-      popupIcon={null}
-      renderInput={(params) => (
-        <SearchInput
-          {...params}
-          placeholder={t('search.placeholder')}
-          InputProps={{
-            ...params.InputProps,
-            startAdornment: (
-              <InputAdornment position="start">
-                <SearchIcon color="action" />
-              </InputAdornment>
-            ),
-            endAdornment: (
-              <React.Fragment>
-                {loading ? <CircularProgress color="inherit" size={20} /> : null}
-                {params.InputProps.endAdornment}
-              </React.Fragment>
-            ),
-          }}
-        />
-      )}
-      renderOption={(props, option) => (
-        <li {...props} key={option.id}>
-          <Box sx={{ 
-            display: 'flex', 
-            alignItems: 'center',
-            width: '100%',
-            py: 1,
-            px: 0.5
-          }}>
-            <Avatar 
+    <>
+      <Autocomplete
+        id="global-search"
+        sx={{ width: '100%' }}
+        open={open}
+        onOpen={() => inputValue.length > 1 && setOpen(true)}
+        onClose={() => setOpen(false)}
+        isOptionEqualToValue={(option, value) => option.id === value.id}
+        getOptionLabel={(option) => option.title}
+        options={options.length > 0 ? options : inputValue.length > 0 ? [] : recentSearches}
+        loading={loading}
+        loadingText={t('search.searching')}
+        inputValue={inputValue}
+        onInputChange={handleInputChange}
+        onChange={handleSelect}
+        filterOptions={(x) => x} // Disable built-in filtering - we handle it in the service
+        noOptionsText={
+          loading ? t('search.searching') : 
+          inputValue.length > 0 ? t('search.noResults') : t('search.startTyping')
+        }
+        blurOnSelect
+        clearOnBlur={false}
+        openOnFocus
+        popupIcon={null}
+        renderInput={(params) => (
+          <SearchInput
+            {...params}
+            placeholder={t('search.placeholder')}
+            InputProps={{
+              ...params.InputProps,
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchIcon color="action" />
+                </InputAdornment>
+              ),
+              endAdornment: (
+                <React.Fragment>
+                  {loading ? <CircularProgress color="inherit" size={20} /> : null}
+                  {params.InputProps.endAdornment}
+                </React.Fragment>
+              ),
+            }}
+          />
+        )}
+        renderOption={(props, option) => (
+          <li {...props} key={option.id}>
+            <Box sx={{ 
+              display: 'flex', 
+              alignItems: 'center',
+              width: '100%',
+              py: 1,
+              px: 0.5
+            }}>
+              <Avatar 
+                sx={{ 
+                  width: 28, 
+                  height: 28, 
+                  mr: 1.5,
+                  bgcolor: theme.palette.primary.main,
+                  color: theme.palette.primary.contrastText,
+                }}
+              >
+                {getCategoryIcon(option.category)}
+              </Avatar>
+              <Box sx={{ flexGrow: 1 }}>
+                <Typography variant="body2" fontWeight="medium">
+                  {option.title}
+                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <CategoryChip
+                    size="small"
+                    label={getCategoryName(option.category)}
+                    icon={option.id.startsWith('recent-') ? <RecentIcon fontSize="small" /> : undefined}
+                  />
+                  {option.description && (
+                    <Typography variant="caption" color="text.secondary" noWrap>
+                      {option.description}
+                    </Typography>
+                  )}
+                </Box>
+              </Box>
+              <ArrowIcon 
+                fontSize="small" 
+                sx={{ 
+                  ml: 1, 
+                  opacity: 0.5,
+                  color: 'primary.main'
+                }} 
+              />
+            </Box>
+          </li>
+        )}
+        groupBy={(option) => {
+          if (recentSearches.some(recent => recent.id === option.id) && options.length === 0) {
+            return 'recent';
+          }
+          return option.category;
+        }}
+        renderGroup={(params) => (
+          <div key={params.key}>
+            <Typography
+              variant="subtitle2"
+              color="text.secondary"
               sx={{ 
-                width: 28, 
-                height: 28, 
-                mr: 1.5,
-                bgcolor: theme.palette.primary.main,
-                color: theme.palette.primary.contrastText,
+                px: 2, 
+                py: 1, 
+                fontWeight: 500, 
+                display: 'flex',
+                alignItems: 'center',
+                gap: 0.5
               }}
             >
-              {getCategoryIcon(option.category)}
-            </Avatar>
-            <Box sx={{ flexGrow: 1 }}>
-              <Typography variant="body2" fontWeight="medium">
-                {option.title}
-              </Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <CategoryChip
+              {params.group === 'recent' ? (
+                <RecentIcon fontSize="small" sx={{ color: 'text.secondary' }} />
+              ) : (
+                getCategoryIcon(params.group)
+              )}
+              {params.group === 'recent' ? t('search.recentSearches') : getCategoryName(params.group)}
+              {params.group !== 'recent' && (
+                <Chip 
                   size="small"
-                  label={getCategoryName(option.category)}
-                  icon={option.id.startsWith('recent-') ? <RecentIcon fontSize="small" /> : undefined}
+                  icon={<FilterIcon fontSize="small" />}
+                  label={selectedCategories.includes(params.group as any) ? 
+                    t('search.filterActive') : 
+                    t('search.filterInactive')}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleCategoryFilter(params.group as any);
+                  }}
+                  color={selectedCategories.includes(params.group as any) ? "primary" : "default"}
+                  sx={{ ml: 1, cursor: 'pointer' }}
                 />
-                {option.description && (
-                  <Typography variant="caption" color="text.secondary" noWrap>
-                    {option.description}
-                  </Typography>
-                )}
-              </Box>
-            </Box>
-            <ArrowIcon 
-              fontSize="small" 
-              sx={{ 
-                ml: 1, 
-                opacity: 0.5,
-                color: 'primary.main'
-              }} 
-            />
-          </Box>
-        </li>
-      )}
-      groupBy={(option) => {
-        if (recentSearches.some(recent => recent.id === option.id) && options.length === 0) {
-          return 'recent';
-        }
-        return option.category;
-      }}
-      renderGroup={(params) => (
-        <div key={params.key}>
-          <Typography
-            variant="subtitle2"
-            color="text.secondary"
+              )}
+            </Typography>
+            {params.children}
+          </div>
+        )}
+        PaperComponent={(props: PaperProps) => (
+          <Paper 
+            elevation={6} 
+            {...props} 
             sx={{ 
-              px: 2, 
-              py: 1, 
-              fontWeight: 500, 
-              display: 'flex',
-              alignItems: 'center',
-              gap: 0.5
-            }}
-          >
-            {params.group === 'recent' ? (
-              <RecentIcon fontSize="small" sx={{ color: 'text.secondary' }} />
-            ) : (
-              getCategoryIcon(params.group)
-            )}
-            {params.group === 'recent' ? t('search.recentSearches') : getCategoryName(params.group)}
-          </Typography>
-          {params.children}
-        </div>
+              maxHeight: '60vh',
+              mt: 1,
+              overflow: 'hidden',
+              borderRadius: 2,
+              border: `1px solid ${theme.palette.divider}`,
+              ...(props.sx || {})
+            }} 
+          />
+        )}
+      />
+      {/* Display active filters if any */}
+      {selectedCategories.length > 0 && (
+        <Box sx={{ mt: 1, display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+          {selectedCategories.map(category => (
+            <Chip
+              key={category}
+              size="small"
+              label={t(`search.categories.${category}`)}
+              icon={getCategoryIcon(category)}
+              onDelete={() => toggleCategoryFilter(category)}
+              color="primary"
+              variant="outlined"
+            />
+          ))}
+          <Chip
+            size="small"
+            label={t('search.clearFilters')}
+            onClick={() => setSelectedCategories([])}
+            color="default"
+          />
+        </Box>
       )}
-      PaperComponent={(props: PaperProps) => (
-        <Paper 
-          elevation={6} 
-          {...props} 
-          sx={{ 
-            maxHeight: '60vh',
-            mt: 1,
-            overflow: 'hidden',
-            borderRadius: 2,
-            border: `1px solid ${theme.palette.divider}`,
-            ...(props.sx || {})
-          }} 
-        />
-      )}
-    />
+    </>
   );
 };
 

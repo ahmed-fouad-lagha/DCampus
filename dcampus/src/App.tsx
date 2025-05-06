@@ -107,6 +107,7 @@ const AppWithTheme = () => {
   );
 };
 
+// Wrapped AppWithTheme with ThemeProvider
 function App() {
   return (
     <ThemeProvider>

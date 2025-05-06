@@ -18,7 +18,7 @@ import { alpha } from '@mui/material/styles';
 // Import dashboard components
 import KeyMetricsGrid from '../components/dashboard/KeyMetricsGrid';
 import AnalyticsChart from '../components/dashboard/AnalyticsChart';
-import InsightsPanel from '../components/dashboard/InsightsPanel';
+import AIInsightsPanel from '../components/dashboard/AIInsightsPanel';
 import RecentActivityList from '../components/dashboard/RecentActivityList';
 import UpcomingEventsList from '../components/dashboard/UpcomingEventsList';
 
@@ -282,24 +282,11 @@ const DashboardPage: React.FC = () => {
         </Grid>
 
         <Grid item xs={12} md={4}>
-          <Card sx={{ height: '100%', borderRadius: 3, boxShadow: 2 }}>
-            <CardContent>
-              <Typography variant="h6" fontWeight="bold" component="h2" sx={{ mb: 2 }}>
-                {t('dashboard.insightsTitle')}
-              </Typography>
-              <Divider sx={{ mb: 2 }} />
-              <InsightsPanel 
-                key={refreshKey}
-                onInsightClick={(insightId) => 
-                  trackEvent({
-                    category: 'Dashboard',
-                    action: 'Insight Clicked',
-                    label: `Insight-${insightId}`
-                  })
-                }
-              />
-            </CardContent>
-          </Card>
+          <AIInsightsPanel
+            key={refreshKey}
+            userId={mockUser.id}
+            userRole={mockUser.role}
+          />
         </Grid>
       </Grid>
       

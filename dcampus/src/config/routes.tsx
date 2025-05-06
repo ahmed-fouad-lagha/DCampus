@@ -7,6 +7,9 @@ const LoginPage = lazy(() => import('../pages/LoginPage'));
 const RegisterPage = lazy(() => import('../pages/RegisterPage'));
 const DashboardPage = lazy(() => import('../pages/DashboardPage'));
 const AppLayout = lazy(() => import('../components/layout/AppLayout'));
+const SettingsPage = lazy(() => import('../pages/SettingsPage'));
+const ProfilePage = lazy(() => import('../pages/ProfilePage'));
+const UserManagementPage = lazy(() => import('../pages/UserManagementPage'));
 
 // Loading fallback component
 const LoadingFallback = () => (
@@ -71,6 +74,33 @@ export const routes: CustomRouteObject[] = [
         element: (
           <Suspense fallback={<LoadingFallback />}>
             <DashboardPage />
+          </Suspense>
+        ),
+        meta: { type: RouteType.PROTECTED }
+      },
+      {
+        path: 'settings',
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <SettingsPage />
+          </Suspense>
+        ),
+        meta: { type: RouteType.PROTECTED }
+      },
+      {
+        path: 'profile',
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <ProfilePage />
+          </Suspense>
+        ),
+        meta: { type: RouteType.PROTECTED }
+      },
+      {
+        path: 'user-management',
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <UserManagementPage />
           </Suspense>
         ),
         meta: { type: RouteType.PROTECTED }

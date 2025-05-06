@@ -16,7 +16,8 @@ import {
   Notifications as NotificationsIcon,
   LightMode as LightModeIcon,
   DarkMode as DarkModeIcon,
-  ChevronRight as ChevronRightIcon
+  ChevronRight as ChevronRightIcon,
+  People as PeopleIcon
 } from '@mui/icons-material';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
@@ -162,8 +163,8 @@ const AppLayout: React.FC = () => {
     ] : [
       {
         text: t('navigation.userManagement'),
-        icon: <PersonIcon />,
-        path: '/users'
+        icon: <PeopleIcon />,
+        path: '/user-management'
       },
       {
         text: t('navigation.courseManagement'),
