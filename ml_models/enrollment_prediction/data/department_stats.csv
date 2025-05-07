@@ -1,0 +1,73 @@
+semester,department,total_enrollment,avg_enrollment,courses_offered
+Fall 2020,Arts,302,60.4,5
+Fall 2020,Biology,100,33.333333333333336,3
+Fall 2020,Business,166,41.5,4
+Fall 2020,Chemistry,333,66.6,5
+Fall 2020,Computer Science,192,38.4,5
+Fall 2020,Engineering,159,26.5,6
+Fall 2020,Mathematics,314,62.8,5
+Fall 2020,Physics,131,65.5,2
+Fall 2020,Social Sciences,278,34.75,8
+Fall 2021,Arts,391,78.2,5
+Fall 2021,Biology,166,41.5,4
+Fall 2021,Business,196,65.33333333333333,3
+Fall 2021,Chemistry,449,89.8,5
+Fall 2021,Computer Science,345,57.5,6
+Fall 2021,Engineering,254,42.333333333333336,6
+Fall 2021,Mathematics,372,124.0,3
+Fall 2021,Physics,117,117.0,1
+Fall 2021,Social Sciences,268,44.666666666666664,6
+Fall 2022,Arts,380,76.0,5
+Fall 2022,Biology,112,37.333333333333336,3
+Fall 2022,Business,213,53.25,4
+Fall 2022,Chemistry,469,93.8,5
+Fall 2022,Computer Science,268,53.6,5
+Fall 2022,Engineering,234,39.0,6
+Fall 2022,Mathematics,457,91.4,5
+Fall 2022,Physics,177,88.5,2
+Fall 2022,Social Sciences,353,44.125,8
+Fall 2023,Arts,357,71.4,5
+Fall 2023,Biology,187,46.75,4
+Fall 2023,Business,203,67.66666666666667,3
+Fall 2023,Chemistry,507,101.4,5
+Fall 2023,Computer Science,312,52.0,6
+Fall 2023,Engineering,264,44.0,6
+Fall 2023,Mathematics,363,121.0,3
+Fall 2023,Physics,97,97.0,1
+Fall 2023,Social Sciences,277,46.166666666666664,6
+Spring 2021,Arts,315,63.0,5
+Spring 2021,Biology,94,31.333333333333332,3
+Spring 2021,Business,77,38.5,2
+Spring 2021,Chemistry,381,76.2,5
+Spring 2021,Computer Science,203,40.6,5
+Spring 2021,Engineering,158,22.571428571428573,7
+Spring 2021,Mathematics,123,61.5,2
+Spring 2021,Physics,125,41.666666666666664,3
+Spring 2021,Social Sciences,193,32.166666666666664,6
+Spring 2022,Arts,461,92.2,5
+Spring 2022,Biology,83,41.5,2
+Spring 2022,Business,157,52.333333333333336,3
+Spring 2022,Chemistry,581,116.2,5
+Spring 2022,Computer Science,271,67.75,4
+Spring 2022,Engineering,240,34.285714285714285,7
+Spring 2022,Mathematics,295,73.75,4
+Spring 2022,Physics,349,87.25,4
+Spring 2022,Social Sciences,382,47.75,8
+Spring 2023,Arts,383,76.6,5
+Spring 2023,Biology,135,45.0,3
+Spring 2023,Business,113,56.5,2
+Spring 2023,Chemistry,509,101.8,5
+Spring 2023,Computer Science,256,51.2,5
+Spring 2023,Engineering,249,35.57142857142857,7
+Spring 2023,Mathematics,197,98.5,2
+Spring 2023,Physics,179,59.666666666666664,3
+Spring 2023,Social Sciences,231,38.5,6
+Spring 2024,Arts,422,84.4,5
+Spring 2024,Biology,91,45.5,2
+Spring 2024,Business,144,48.0,3
+Spring 2024,Chemistry,567,113.4,5
+Spring 2024,Computer Science,261,65.25,4
+Spring 2024,Engineering,263,37.57142857142857,7
+Spring 2024,Mathematics,304,76.0,4
+Spring 2024,Physics,362,90.5,4
+Spring 2024,Social Sciences,396,49.5,8

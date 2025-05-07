@@ -1,340 +1,367 @@
-import AIService, { AIServiceConfig } from './aiService';
+import AIService, { AIResponse, AIServiceConfig } from './aiService';
 
 /**
- * Types for recommendation system
+ * Course recommendation request parameters
+ */
+export interface CourseRecommendationRequest {
+  studentId: string;
+  count?: number;
+  includeReasons?: boolean;
+  filters?: {
+    difficulty?: 'easy' | 'medium' | 'hard';
+    category?: string[];
+    scheduleCompatible?: boolean;
+    prerequisites?: boolean;
+  };
+}
+
+/**
+ * Course recommendation response
  */
 export interface CourseRecommendation {
   courseId: string;
   courseName: string;
-  department: string;
-  relevanceScore: number; // 0-1 scale
-  reasonsForRecommendation: string[];
-  expectedDifficulty: 'easy' | 'moderate' | 'challenging';
-  prerequisites: string[];
-  skillsGained: string[];
-  careerRelevance?: string[];
-}
-
-export interface ResourceRecommendation {
-  resourceId: string;
-  resourceName: string;
-  resourceType: 'book' | 'article' | 'video' | 'website' | 'tool' | 'practice';
-  relevanceScore: number; // 0-1 scale
+  courseCode: string;
   description: string;
-  url?: string;
-  estimatedTimeToComplete?: string; // e.g. "2 hours", "3 days"
-}
-
-export interface PeerGroupRecommendation {
-  groupId: string;
-  topic: string;
-  relevanceScore: number;
-  studentIds: string[];
-  suggestedActivities: string[];
-  expectedOutcomes: string[];
-}
-
-export interface CareerPathRecommendation {
-  pathId: string;
-  careerTitle: string;
-  relevanceScore: number;
-  matchedSkills: string[];
-  requiredSkills: string[];
-  recommendedCourses: {
-    courseId: string;
-    courseName: string;
-    priority: 'high' | 'medium' | 'low';
+  creditHours: number;
+  department: string;
+  instructor?: string;
+  difficulty: 'easy' | 'medium' | 'hard';
+  rating?: number;
+  matchScore: number; // 0-1 indicating how well the course matches the student's profile
+  reasons?: {
+    reason: string;
+    strength: number; // 0-1 indicating the strength of this reason
   }[];
-  industryDemand: 'high' | 'medium' | 'low';
-  estimatedSalaryRange?: {
-    min: number;
-    max: number;
-    currency: string;
-  };
-}
-
-export interface RecommendationParameters {
-  userId: string;
-  userRole: 'student' | 'faculty' | 'admin';
-  currentCourseId?: string;
-  academicFocus?: string[];
-  careerInterests?: string[];
-  previouslyCompleted?: string[];
-  limit?: number;
+  prerequisites?: string[];
 }
 
 /**
- * Service for AI-powered recommendations
+ * Learning resource recommendation request parameters
+ */
+export interface ResourceRecommendationRequest {
+  studentId: string;
+  courseId?: string;
+  topicId?: string;
+  count?: number;
+  includeReasons?: boolean;
+  resourceTypes?: ('video' | 'article' | 'exercise' | 'book' | 'tool')[];
+}
+
+/**
+ * Learning resource recommendation response
+ */
+export interface ResourceRecommendation {
+  resourceId: string;
+  title: string;
+  description: string;
+  type: 'video' | 'article' | 'exercise' | 'book' | 'tool';
+  url: string;
+  creator?: string;
+  duration?: number; // minutes for videos, reading time for articles
+  difficulty: 'beginner' | 'intermediate' | 'advanced';
+  topics: string[];
+  matchScore: number; // 0-1 indicating how well the resource matches the student's needs
+  reasons?: {
+    reason: string;
+    strength: number; // 0-1 indicating the strength of this reason
+  }[];
+}
+
+/**
+ * Career path recommendation request parameters
+ */
+export interface CareerPathRecommendationRequest {
+  studentId: string;
+  count?: number;
+  includeDetails?: boolean;
+  includeSkillGaps?: boolean;
+}
+
+/**
+ * Career path recommendation response
+ */
+export interface CareerPathRecommendation {
+  careerPath: string;
+  description: string;
+  matchScore: number; // 0-1 indicating how well the career matches the student's profile
+  relevantSkills: {
+    skill: string;
+    studentProficiency: number; // 0-1
+    requiredProficiency: number; // 0-1
+    gap?: number; // Difference between required and current proficiency
+  }[];
+  relevantCourses?: string[];
+  industryDemand: 'low' | 'moderate' | 'high' | 'very high';
+  averageSalary?: {
+    entry: number;
+    mid: number;
+    senior: number;
+    currency: string;
+  };
+  recommendedNextSteps?: {
+    step: string;
+    description: string;
+    priority: 'low' | 'medium' | 'high';
+  }[];
+}
+
+/**
+ * Class for handling personalized recommendations
  */
 class RecommendationService extends AIService {
-  constructor(config: AIServiceConfig = {}) {
-    super({
-      ...config,
-      baseURL: config.baseURL || process.env.REACT_APP_RECOMMENDATION_API_URL
-    });
+  constructor(config?: AIServiceConfig) {
+    super(config);
   }
 
   /**
-   * Get course recommendations for a user
+   * Get course recommendations for a specific student
    */
-  async getRecommendedCourses(params: RecommendationParameters): Promise<CourseRecommendation[]> {
+  public async getRecommendedCourses(
+    request: CourseRecommendationRequest
+  ): Promise<AIResponse<CourseRecommendation[]>> {
     try {
-      return await this.makeRequest<CourseRecommendation[]>('/recommend/courses', 'POST', params);
-    } catch (error) {
-      console.warn('Using mock course recommendations');
-      return this.getMockCourseRecommendations(params);
-    }
-  }
-
-  /**
-   * Get resource recommendations for a user
-   */
-  async getRecommendedResources(
-    params: RecommendationParameters & { resourceTypes?: string[] }
-  ): Promise<ResourceRecommendation[]> {
-    try {
-      return await this.makeRequest<ResourceRecommendation[]>('/recommend/resources', 'POST', params);
-    } catch (error) {
-      console.warn('Using mock resource recommendations');
-      return this.getMockResourceRecommendations(params);
-    }
-  }
-
-  /**
-   * Get peer group recommendations for collaborative learning
-   */
-  async getRecommendedPeerGroups(params: RecommendationParameters): Promise<PeerGroupRecommendation[]> {
-    try {
-      return await this.makeRequest<PeerGroupRecommendation[]>('/recommend/peer-groups', 'POST', params);
-    } catch (error) {
-      console.warn('Using mock peer group recommendations');
-      return this.getMockPeerGroupRecommendations(params);
-    }
-  }
-
-  /**
-   * Get career path recommendations based on academic profile
-   */
-  async getRecommendedCareerPaths(params: RecommendationParameters): Promise<CareerPathRecommendation[]> {
-    try {
-      return await this.makeRequest<CareerPathRecommendation[]>('/recommend/career-paths', 'POST', params);
-    } catch (error) {
-      console.warn('Using mock career path recommendations');
-      return this.getMockCareerPathRecommendations(params);
-    }
-  }
-
-  // MOCK DATA METHODS
-  // These methods provide fallback data for development and testing
-
-  private getMockCourseRecommendations(params: RecommendationParameters): CourseRecommendation[] {
-    const courses = [
-      {
-        courseId: 'CS301',
-        courseName: 'Data Structures and Algorithms',
-        department: 'Computer Science',
-        relevanceScore: 0.95,
-        reasonsForRecommendation: [
-          'Based on your performance in CS101',
-          'Essential for your computer science major',
-          'Builds foundational programming skills'
-        ],
-        expectedDifficulty: 'moderate' as const,
-        prerequisites: ['CS101', 'MATH142'],
-        skillsGained: ['Algorithm design', 'Time complexity analysis', 'Data structure implementation']
-      },
-      {
-        courseId: 'CS350',
-        courseName: 'Database Systems',
-        department: 'Computer Science',
-        relevanceScore: 0.88,
-        reasonsForRecommendation: [
-          'Complements your web development interests',
-          'Required for software engineering roles',
-          'High career relevance in data management'
-        ],
-        expectedDifficulty: 'moderate' as const,
-        prerequisites: ['CS201'],
-        skillsGained: ['SQL', 'Database design', 'Query optimization']
-      },
-      {
-        courseId: 'AI400',
-        courseName: 'Introduction to Machine Learning',
-        department: 'Artificial Intelligence',
-        relevanceScore: 0.82,
-        reasonsForRecommendation: [
-          'Aligns with your interest in data science',
-          'Growing field with high job demand',
-          'Builds on your strong mathematics background'
-        ],
-        expectedDifficulty: 'challenging' as const,
-        prerequisites: ['CS301', 'STATS201', 'MATH242'],
-        skillsGained: ['Predictive modeling', 'Statistical analysis', 'Python for ML'],
-        careerRelevance: ['Data Scientist', 'ML Engineer', 'AI Researcher']
-      }
-    ];
-    
-    // Adjust recommendations based on user role
-    if (params.userRole === 'faculty') {
-      return courses.map(course => ({
-        ...course,
-        reasonsForRecommendation: [
-          'Popular among students in your department',
-          'Complementary to courses you currently teach',
-          'Potential for research collaboration'
-        ]
-      }));
-    }
-    
-    return courses.slice(0, params.limit || courses.length);
-  }
-
-  private getMockResourceRecommendations(
-    params: RecommendationParameters & { resourceTypes?: string[] }
-  ): ResourceRecommendation[] {
-    const resources = [
-      {
-        resourceId: 'RES001',
-        resourceName: 'Introduction to Algorithm Design',
-        resourceType: 'book' as const,
-        relevanceScore: 0.92,
-        description: 'A comprehensive guide to algorithm design techniques, with practical examples and exercises.',
-        estimatedTimeToComplete: '30 hours'
-      },
-      {
-        resourceId: 'RES002',
-        resourceName: 'SQL Mastery Tutorial Series',
-        resourceType: 'video' as const,
-        relevanceScore: 0.88,
-        description: 'Video series covering SQL from basics to advanced queries, indexing, and optimization.',
-        url: 'https://example.com/sql-tutorials',
-        estimatedTimeToComplete: '12 hours'
-      },
-      {
-        resourceId: 'RES003',
-        resourceName: 'Machine Learning Practice Projects',
-        resourceType: 'practice' as const,
-        relevanceScore: 0.79,
-        description: 'Hands-on projects to apply machine learning concepts to real-world problems.',
-        url: 'https://example.com/ml-projects',
-        estimatedTimeToComplete: '40 hours'
-      },
-      {
-        resourceId: 'RES004',
-        resourceName: 'Research Methods in Computer Science',
-        resourceType: 'article' as const,
-        relevanceScore: 0.75,
-        description: 'Academic paper discussing effective research methodologies in computer science.',
-        url: 'https://example.com/research-methods',
-        estimatedTimeToComplete: '3 hours'
-      }
-    ];
-    
-    // Filter by resource type if specified
-    let filteredResources = resources;
-    if (params.resourceTypes && params.resourceTypes.length > 0) {
-      filteredResources = resources.filter(resource => 
-        params.resourceTypes?.includes(resource.resourceType)
+      const result = await this.makeRequest<AIResponse<CourseRecommendation[]>>(
+        '/recommend/courses',
+        'POST',
+        request
       );
+      return result;
+    } catch (error) {
+      console.error('Error getting course recommendations:', error);
+      return {
+        success: false,
+        error: {
+          code: 'recommendation_failed',
+          message: 'Failed to get course recommendations',
+          details: error
+        }
+      };
     }
+  }
+
+  /**
+   * Get learning resource recommendations for a student
+   */
+  public async getRecommendedResources(
+    request: ResourceRecommendationRequest
+  ): Promise<AIResponse<ResourceRecommendation[]>> {
+    try {
+      const result = await this.makeRequest<AIResponse<ResourceRecommendation[]>>(
+        '/recommend/resources',
+        'POST',
+        request
+      );
+      return result;
+    } catch (error) {
+      console.error('Error getting resource recommendations:', error);
+      return {
+        success: false,
+        error: {
+          code: 'recommendation_failed',
+          message: 'Failed to get resource recommendations',
+          details: error
+        }
+      };
+    }
+  }
+
+  /**
+   * Get career path recommendations for a student
+   */
+  public async getCareerPathRecommendations(
+    request: CareerPathRecommendationRequest
+  ): Promise<AIResponse<CareerPathRecommendation[]>> {
+    try {
+      const result = await this.makeRequest<AIResponse<CareerPathRecommendation[]>>(
+        '/recommend/careers',
+        'POST',
+        request
+      );
+      return result;
+    } catch (error) {
+      console.error('Error getting career recommendations:', error);
+      return {
+        success: false,
+        error: {
+          code: 'recommendation_failed',
+          message: 'Failed to get career recommendations',
+          details: error
+        }
+      };
+    }
+  }
+
+  /**
+   * Mock course recommendation data for development purposes
+   */
+  public async getMockCourseRecommendations(studentId: string): Promise<AIResponse<CourseRecommendation[]>> {
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 700));
     
-    return filteredResources.slice(0, params.limit || filteredResources.length);
-  }
-
-  private getMockPeerGroupRecommendations(params: RecommendationParameters): PeerGroupRecommendation[] {
-    return [
-      {
-        groupId: 'PG001',
-        topic: 'Algorithm Study Group',
-        relevanceScore: 0.91,
-        studentIds: ['S1005', 'S1032', 'S1047'],
-        suggestedActivities: [
-          'Weekly problem-solving sessions',
-          'Collaborative coding challenges',
-          'Algorithm competition preparation'
-        ],
-        expectedOutcomes: [
-          'Improved problem-solving skills',
-          'Better algorithm analysis capabilities',
-          'Preparation for technical interviews'
-        ]
-      },
-      {
-        groupId: 'PG002',
-        topic: 'Database Project Team',
-        relevanceScore: 0.85,
-        studentIds: ['S1012', 'S1025', 'S1041'],
-        suggestedActivities: [
-          'Database design workshops',
-          'Real-world database implementation',
-          'Performance optimization exercises'
-        ],
-        expectedOutcomes: [
-          'Practical database implementation experience',
-          'Team collaboration skills',
-          'Project portfolio development'
-        ]
+    return {
+      success: true,
+      data: [
+        {
+          courseId: 'CS401',
+          courseName: 'Advanced Data Structures',
+          courseCode: 'CS 401',
+          description: 'A comprehensive study of advanced data structures, algorithms, and their applications in solving complex programming problems.',
+          creditHours: 3,
+          department: 'Computer Science',
+          instructor: 'Dr. Sarah Johnson',
+          difficulty: 'medium',
+          rating: 4.7,
+          matchScore: 0.95,
+          reasons: [
+            {
+              reason: 'Builds on your strong performance in Algorithms',
+              strength: 0.9
+            },
+            {
+              reason: 'Aligns with your interest in software development',
+              strength: 0.85
+            }
+          ],
+          prerequisites: ['CS201', 'CS302']
+        },
+        {
+          courseId: 'CS445',
+          courseName: 'Machine Learning Fundamentals',
+          courseCode: 'CS 445',
+          description: 'Introduction to the principles and techniques of machine learning with applications to real-world problems.',
+          creditHours: 4,
+          department: 'Computer Science',
+          instructor: 'Dr. Michael Chen',
+          difficulty: 'hard',
+          rating: 4.5,
+          matchScore: 0.87,
+          reasons: [
+            {
+              reason: 'Complements your statistics background',
+              strength: 0.8
+            },
+            {
+              reason: 'Aligns with your career interest in AI',
+              strength: 0.95
+            }
+          ],
+          prerequisites: ['CS302', 'MATH240']
+        },
+        {
+          courseId: 'CS380',
+          courseName: 'Web Application Development',
+          courseCode: 'CS 380',
+          description: 'Comprehensive overview of web development principles, frameworks, and best practices for building modern web applications.',
+          creditHours: 3,
+          department: 'Computer Science',
+          instructor: 'Prof. Elena Rodriguez',
+          difficulty: 'medium',
+          rating: 4.8,
+          matchScore: 0.82,
+          reasons: [
+            {
+              reason: 'Matches your project portfolio interests',
+              strength: 0.85
+            },
+            {
+              reason: 'Highly rated by students with similar profiles',
+              strength: 0.75
+            }
+          ],
+          prerequisites: ['CS215']
+        }
+      ],
+      meta: {
+        processingTime: 245,
+        modelVersion: '2.1.0',
+        requestId: `mock-${Date.now()}`
       }
-    ].slice(0, params.limit || 2);
+    };
   }
-
-  private getMockCareerPathRecommendations(params: RecommendationParameters): CareerPathRecommendation[] {
-    return [
-      {
-        pathId: 'CP001',
-        careerTitle: 'Software Engineer',
-        relevanceScore: 0.94,
-        matchedSkills: ['Programming', 'Data Structures', 'Problem Solving'],
-        requiredSkills: ['System Design', 'DevOps', 'Testing Methodologies'],
-        recommendedCourses: [
-          { courseId: 'CS401', courseName: 'Software Engineering', priority: 'high' as const },
-          { courseId: 'CS430', courseName: 'System Architecture', priority: 'medium' as const },
-          { courseId: 'CS450', courseName: 'DevOps and Deployment', priority: 'low' as const }
-        ],
-        industryDemand: 'high' as const,
-        estimatedSalaryRange: {
-          min: 60000,
-          max: 120000,
-          currency: 'USD'
+  
+  /**
+   * Mock resource recommendation data for development purposes
+   */
+  public async getMockResourceRecommendations(studentId: string, courseId?: string): Promise<AIResponse<ResourceRecommendation[]>> {
+    // Simulate API delay
+    await new Promise(resolve => setTimeout(resolve, 500));
+    
+    return {
+      success: true,
+      data: [
+        {
+          resourceId: 'vid-12345',
+          title: 'Understanding BigO Notation',
+          description: 'A comprehensive tutorial on algorithm complexity and BigO notation with visual examples.',
+          type: 'video',
+          url: 'https://example.com/videos/understanding-bigo',
+          creator: 'Tech Learning Hub',
+          duration: 28,
+          difficulty: 'intermediate',
+          topics: ['algorithms', 'complexity analysis', 'computer science fundamentals'],
+          matchScore: 0.93,
+          reasons: [
+            {
+              reason: 'Addresses concepts you\'re currently studying',
+              strength: 0.9
+            },
+            {
+              reason: 'Visual learning style match',
+              strength: 0.85
+            }
+          ]
+        },
+        {
+          resourceId: 'art-34567',
+          title: 'Practical Applications of Binary Trees',
+          description: 'Explore how binary trees are used in real-world applications with code examples in Python.',
+          type: 'article',
+          url: 'https://example.com/articles/binary-trees-applications',
+          creator: 'CodeCraft Blog',
+          duration: 15,
+          difficulty: 'intermediate',
+          topics: ['data structures', 'binary trees', 'python'],
+          matchScore: 0.88,
+          reasons: [
+            {
+              reason: 'Relevant to your current coursework',
+              strength: 0.9
+            },
+            {
+              reason: 'Practical application focus matches your learning preferences',
+              strength: 0.8
+            }
+          ]
+        },
+        {
+          resourceId: 'exc-56789',
+          title: 'Advanced Sorting Algorithms Practice',
+          description: 'Interactive exercises to practice implementing and analyzing different sorting algorithms.',
+          type: 'exercise',
+          url: 'https://example.com/exercises/sorting-algorithms',
+          creator: 'Algorithm Academy',
+          difficulty: 'advanced',
+          topics: ['algorithms', 'sorting', 'performance optimization'],
+          matchScore: 0.85,
+          reasons: [
+            {
+              reason: 'Helps reinforce concepts from Algorithm Analysis course',
+              strength: 0.9
+            },
+            {
+              reason: 'Interactive practice matches your learning style',
+              strength: 0.8
+            }
+          ]
         }
-      },
-      {
-        pathId: 'CP002',
-        careerTitle: 'Data Scientist',
-        relevanceScore: 0.87,
-        matchedSkills: ['Statistics', 'Programming', 'Analytical Thinking'],
-        requiredSkills: ['Machine Learning', 'Big Data Technologies', 'Data Visualization'],
-        recommendedCourses: [
-          { courseId: 'AI400', courseName: 'Introduction to Machine Learning', priority: 'high' as const },
-          { courseId: 'STATS302', courseName: 'Advanced Statistical Methods', priority: 'high' as const },
-          { courseId: 'CS460', courseName: 'Big Data Processing', priority: 'medium' as const }
-        ],
-        industryDemand: 'high' as const,
-        estimatedSalaryRange: {
-          min: 70000,
-          max: 130000,
-          currency: 'USD'
-        }
-      },
-      {
-        pathId: 'CP003',
-        careerTitle: 'Cloud Solutions Architect',
-        relevanceScore: 0.81,
-        matchedSkills: ['System Design', 'Network Knowledge', 'Problem Solving'],
-        requiredSkills: ['Cloud Platforms', 'Security Protocols', 'Distributed Systems'],
-        recommendedCourses: [
-          { courseId: 'CS440', courseName: 'Cloud Computing', priority: 'high' as const },
-          { courseId: 'CS455', courseName: 'Distributed Systems', priority: 'medium' as const },
-          { courseId: 'CS435', courseName: 'Network Security', priority: 'medium' as const }
-        ],
-        industryDemand: 'high' as const,
-        estimatedSalaryRange: {
-          min: 80000,
-          max: 150000,
-          currency: 'USD'
-        }
+      ],
+      meta: {
+        processingTime: 187,
+        modelVersion: '1.8.5',
+        requestId: `mock-${Date.now()}`
       }
-    ].slice(0, params.limit || 3);
+    };
   }
 }
 

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { 
   Box, Button, TextField, Typography, Link, 
-  Paper, Avatar, FormControlLabel, Checkbox, Stack
+  Paper, Avatar, FormControlLabel, Checkbox, Stack,
+  CircularProgress, Alert
 } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useAuth } from '../../context/AuthContext';
@@ -13,6 +14,7 @@ const LoginForm: React.FC = () => {
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isRedirecting, setIsRedirecting] = useState(false);
   const { signIn, loading } = useAuth();
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -33,8 +35,14 @@ const LoginForm: React.FC = () => {
       return;
     }
 
-    // Redirect to dashboard on successful login
-    navigate('/dashboard');
+    // Set redirecting state to show feedback
+    setIsRedirecting(true);
+    
+    // Shorter delay since we've already optimized the auth process
+    setTimeout(() => {
+      // Redirect to dashboard on successful login
+      navigate('/dashboard');
+    }, 300);
   };
 
   return (
@@ -56,9 +64,15 @@ const LoginForm: React.FC = () => {
 
         <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
           {error && (
-            <Typography color="error" variant="body2" sx={{ mb: 2 }}>
+            <Alert severity="error" sx={{ mb: 2 }}>
               {error}
-            </Typography>
+            </Alert>
+          )}
+          
+          {isRedirecting && (
+            <Alert severity="success" sx={{ mb: 2 }}>
+              Login successful. Redirecting to dashboard...
+            </Alert>
           )}
 
           <TextField
@@ -72,6 +86,7 @@ const LoginForm: React.FC = () => {
             autoFocus
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            disabled={loading || isRedirecting}
           />
 
           <TextField
@@ -85,6 +100,7 @@ const LoginForm: React.FC = () => {
             autoComplete="current-password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            disabled={loading || isRedirecting}
           />
 
           <FormControlLabel
@@ -94,6 +110,7 @@ const LoginForm: React.FC = () => {
                 color="primary" 
                 checked={rememberMe} 
                 onChange={(e) => setRememberMe(e.target.checked)} 
+                disabled={loading || isRedirecting}
               />
             }
             label={t('auth.rememberMe')}
@@ -104,10 +121,16 @@ const LoginForm: React.FC = () => {
             fullWidth
             variant="contained"
             color="primary"
-            disabled={loading}
+            disabled={loading || isRedirecting}
             sx={{ mt: 3, mb: 2 }}
           >
-            {loading ? t('common.loading') : t('auth.login')}
+            {loading ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : isRedirecting ? (
+              'Redirecting...'
+            ) : (
+              t('auth.login')
+            )}
           </Button>
 
           <Stack direction="row" justifyContent="space-between" sx={{ mt: 2 }}>

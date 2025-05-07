@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Box, Button, TextField, Typography, Link, 
   Paper, Avatar, Stack, FormControl, 
-  InputLabel, Select, MenuItem, FormHelperText 
+  InputLabel, Select, MenuItem, FormHelperText,
+  Alert
 } from '@mui/material';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { useAuth } from '../../context/AuthContext';
@@ -10,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserRole } from '../../types/database.types';
 import { useTranslation } from 'react-i18next';
 import { SelectChangeEvent } from '@mui/material/Select';
+import { initConnection, getConnectionStatus } from '../../config/supabase';
 
 const RegisterForm: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -112,30 +114,47 @@ const RegisterForm: React.FC = () => {
       return;
     }
     
+    // Fix: Correctly map form fields to match profile structure expected by Supabase
     const userData = {
       email: formData.email,
       password: formData.password,
-      first_name: formData.firstName,
-      last_name: formData.lastName,
+      first_name: formData.firstName, // Properly map camelCase to snake_case
+      last_name: formData.lastName,   // Properly map camelCase to snake_case
       role: formData.role,
       department: formData.department,
-      student_id: formData.studentId,
-      faculty_id: formData.facultyId
+      student_id: formData.studentId, // Properly map camelCase to snake_case
+      faculty_id: formData.facultyId  // Properly map camelCase to snake_case
     };
     
-    // Fix: Pass all required parameters to signUp
-    const result = await signUp(formData.email, formData.password, userData);
+    console.log('Starting registration process with form data:', {
+      ...userData, 
+      password: '********' // Don't log the actual password
+    });
     
-    if (!result.success) {
+    try {
+      const result = await signUp(formData.email, formData.password, userData);
+      
+      console.log('Registration result:', result);
+      
+      if (!result.success) {
+        setErrors({
+          ...errors,
+          general: result.error?.message || 'Registration failed. Please try again.'
+        });
+        return;
+      }
+      
+      console.log('Registration successful, redirecting to dashboard...');
+      
+      // Redirect to dashboard after successful registration
+      navigate('/dashboard');
+    } catch (error) {
+      console.error('Registration error:', error);
       setErrors({
         ...errors,
-        general: result.error?.message || 'Registration failed. Please try again.'
+        general: 'An unexpected error occurred. Please try again.'
       });
-      return;
     }
-    
-    // Redirect to login page after successful registration
-    navigate('/login');
   };
 
   const renderRoleSpecificFields = () => {
@@ -174,6 +193,18 @@ const RegisterForm: React.FC = () => {
     }
     return null;
   };
+
+  // Make sure we have a connection to Supabase
+  useEffect(() => {
+    // Initialize the connection to Supabase
+    initConnection();
+    
+    // Check connection status
+    const connectionStatus = getConnectionStatus();
+    if (!connectionStatus.isConnected) {
+      connectionStatus.checkConnection();
+    }
+  }, []);
 
   return (
     <Paper elevation={3} sx={{ p: 4, width: '100%', maxWidth: 600 }}>

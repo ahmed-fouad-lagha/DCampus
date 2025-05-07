@@ -10,6 +10,7 @@ const AppLayout = lazy(() => import('../components/layout/AppLayout'));
 const SettingsPage = lazy(() => import('../pages/SettingsPage'));
 const ProfilePage = lazy(() => import('../pages/ProfilePage'));
 const UserManagementPage = lazy(() => import('../pages/UserManagementPage'));
+const SupabaseTestPage = lazy(() => import('../pages/SupabaseTestPage'));
 
 // Loading fallback component
 const LoadingFallback = () => (
@@ -43,22 +44,16 @@ export interface CustomRouteObject {
 // Create base routes configuration
 export const routes: CustomRouteObject[] = [
   {
+    // Redirect login directly to dashboard
     path: '/login',
-    element: (
-      <Suspense fallback={<LoadingFallback />}>
-        <LoginPage />
-      </Suspense>
-    ),
-    meta: { type: RouteType.GUEST }
+    element: <Navigate to="/dashboard" replace />,
+    meta: { type: RouteType.PUBLIC }
   },
   {
+    // Redirect register directly to dashboard
     path: '/register',
-    element: (
-      <Suspense fallback={<LoadingFallback />}>
-        <RegisterPage />
-      </Suspense>
-    ),
-    meta: { type: RouteType.GUEST }
+    element: <Navigate to="/dashboard" replace />,
+    meta: { type: RouteType.PUBLIC }
   },
   {
     path: '/',
@@ -106,6 +101,15 @@ export const routes: CustomRouteObject[] = [
         meta: { type: RouteType.PROTECTED }
       },
       {
+        path: 'supabase-test',
+        element: (
+          <Suspense fallback={<LoadingFallback />}>
+            <SupabaseTestPage />
+          </Suspense>
+        ),
+        meta: { type: RouteType.PROTECTED }
+      },
+      {
         path: '',
         element: <Navigate to="/dashboard" />,
         meta: { type: RouteType.PROTECTED }
@@ -114,7 +118,7 @@ export const routes: CustomRouteObject[] = [
   },
   {
     path: '*',
-    element: <Navigate to="/login" />,
+    element: <Navigate to="/dashboard" />,
     meta: { type: RouteType.PUBLIC }
   }
 ];

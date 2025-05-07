@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { 
   Typography, Box, Tab, Tabs, 
   useMediaQuery, Grid as MuiGrid, Card, CardContent, 
-  Avatar, Divider, IconButton
+  Avatar, Divider, IconButton, ToggleButtonGroup, ToggleButton, 
+  Tooltip, Paper
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from '@mui/material/styles';
@@ -11,9 +12,15 @@ import {
   School as SchoolIcon,
   Refresh as RefreshIcon,
   Visibility as VisibilityIcon,
-  TrendingUp as TrendingUpIcon
+  TrendingUp as TrendingUpIcon,
+  BarChart as BarChartIcon,
+  ShowChart as ShowChartIcon,
+  DonutLarge as DonutLargeIcon,
+  People as PeopleIcon,
+  MenuBook as MenuBookIcon
 } from '@mui/icons-material';
 import { alpha } from '@mui/material/styles';
+import { useAuth } from '../context/AuthContext';
 
 // Import dashboard components
 import KeyMetricsGrid from '../components/dashboard/KeyMetricsGrid';
@@ -22,14 +29,8 @@ import AIInsightsPanel from '../components/dashboard/AIInsightsPanel';
 import RecentActivityList from '../components/dashboard/RecentActivityList';
 import UpcomingEventsList from '../components/dashboard/UpcomingEventsList';
 
-// Mock user data
-const mockUser = {
-  id: '1',
-  name: 'Mohammed Amine',
-  role: 'student' as const,
-  department: 'Computer Science',
-  institution: 'University of Khenchela'
-};
+// Chart type for analytics
+type ChartType = 'performance' | 'attendance' | 'engagement' | 'enrollment' | 'resources';
 
 // Styled components
 interface GradientCardProps {
@@ -99,7 +100,18 @@ const DashboardPage: React.FC = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [tabValue, setTabValue] = useState(0);
   const [refreshKey, setRefreshKey] = useState(0); // For triggering refresh
+  const [selectedChartType, setSelectedChartType] = useState<ChartType>('performance');
   const { trackEvent, trackTiming } = useAnalytics();
+  const { user, profile } = useAuth();
+  
+  // Pre-defined user details to avoid loading states
+  const userDetails = {
+    id: '1',
+    name: 'User',
+    role: 'student' as 'student' | 'faculty' | 'admin',
+    department: 'Computer Science',
+    institution: 'University of Khenchela'
+  };
   
   // Track page load time
   useEffect(() => {
@@ -131,6 +143,21 @@ const DashboardPage: React.FC = () => {
     });
   };
   
+  // Handle chart type change
+  const handleChartTypeChange = (
+    event: React.MouseEvent<HTMLElement>,
+    newType: ChartType | null
+  ) => {
+    if (newType !== null) {
+      setSelectedChartType(newType);
+      trackEvent({
+        category: 'Dashboard',
+        action: 'Chart Type Changed',
+        label: newType
+      });
+    }
+  };
+  
   return (
     <Box>
       {/* Welcome Header with Refresh Button */}
@@ -144,12 +171,12 @@ const DashboardPage: React.FC = () => {
       >
         <Box>
           <Typography variant="h4" component="h1" fontWeight="bold">
-            {t('dashboard.welcome', { name: mockUser.name })}
+            {t('dashboard.welcomeMessage', { name: userDetails.name.split(' ')[0] })}
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 0.5 }}>
             <SchoolIcon fontSize="small" color="primary" />
             <Typography variant="subtitle1" color="text.secondary">
-              {mockUser.department}, {mockUser.institution}
+              {userDetails.department}, {userDetails.institution}
             </Typography>
           </Box>
         </Box>
@@ -246,49 +273,93 @@ const DashboardPage: React.FC = () => {
             }}
           >
             <CardContent>
-              <KeyMetricsGrid userRole={mockUser.role} />
+              <KeyMetricsGrid userRole={userDetails.role} />
             </CardContent>
           </Card>
         </Grid>
       </Grid>
       
-      {/* Analytics and Insights */}
-      <Grid container spacing={3} sx={{ mb: 4 }}>
-        <Grid item xs={12} md={8}>
-          <Card sx={{ height: '100%', borderRadius: 3, boxShadow: 2 }}>
-            <CardContent>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 3 }}>
-                <Typography variant="h6" fontWeight="bold" component="h2">
-                  {t('dashboard.analyticsTitle')}
-                </Typography>
-                <Box sx={{ display: 'flex', gap: 1 }}>
-                  {/* Analytics controls could go here */}
-                </Box>
-              </Box>
-              <Divider sx={{ mb: 3 }} />
-              <AnalyticsChart 
-                key={refreshKey}
-                userRole={mockUser.role} 
-                onChartInteraction={(chartType) => 
-                  trackEvent({
-                    category: 'Dashboard',
-                    action: 'Chart Interaction',
-                    label: chartType
-                  })
-                }
-              />
-            </CardContent>
-          </Card>
-        </Grid>
-
-        <Grid item xs={12} md={4}>
-          <AIInsightsPanel
-            key={refreshKey}
-            userId={mockUser.id}
-            userRole={mockUser.role}
+      {/* AI Insights Panel */}
+      <Box sx={{ mb: 4 }}>
+        <Paper
+          elevation={0}
+          sx={{
+            p: 2,
+            mb: 3,
+            borderRadius: 2,
+            bgcolor: alpha(theme.palette.primary.main, 0.05),
+            border: `1px solid ${alpha(theme.palette.primary.main, 0.1)}`,
+          }}
+        >
+          <Typography variant="h6" sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+            <TrendingUpIcon color="primary" />
+            {t('dashboard.aiInsightsTitle')}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {t('dashboard.aiInsightsDescription')}
+          </Typography>
+        </Paper>
+        
+        <AIInsightsPanel
+          key={`ai-insights-${refreshKey}`}
+          userId={userDetails.id}
+          userRole={userDetails.role}
+        />
+      </Box>
+      
+      {/* Analytics with Chart Type Selection */}
+      <Card sx={{ borderRadius: 3, boxShadow: 2, mb: 4 }}>
+        <CardContent>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+            <Typography variant="h6" fontWeight="bold" component="h2">
+              {t('dashboard.analyticsTitle')}
+            </Typography>
+            
+            <ToggleButtonGroup
+              value={selectedChartType}
+              exclusive
+              onChange={handleChartTypeChange}
+              aria-label="chart type"
+              size="small"
+            >
+              <ToggleButton value="performance" aria-label="performance chart">
+                <Tooltip title={t('analytics.titles.performance')}>
+                  <ShowChartIcon />
+                </Tooltip>
+              </ToggleButton>
+              <ToggleButton value="attendance" aria-label="attendance chart">
+                <Tooltip title={t('analytics.titles.attendance')}>
+                  <BarChartIcon />
+                </Tooltip>
+              </ToggleButton>
+              <ToggleButton value="engagement" aria-label="engagement chart">
+                <Tooltip title={t('analytics.titles.engagement')}>
+                  <DonutLargeIcon />
+                </Tooltip>
+              </ToggleButton>
+              {userDetails.role !== 'student' && (
+                <ToggleButton value="enrollment" aria-label="enrollment chart">
+                  <Tooltip title={t('analytics.titles.enrollment')}>
+                    <PeopleIcon />
+                  </Tooltip>
+                </ToggleButton>
+              )}
+              <ToggleButton value="resources" aria-label="resources chart">
+                <Tooltip title={t('analytics.titles.resources')}>
+                  <MenuBookIcon />
+                </Tooltip>
+              </ToggleButton>
+            </ToggleButtonGroup>
+          </Box>
+          <Divider sx={{ mb: 3 }} />
+          
+          <AnalyticsChart 
+            key={`chart-${selectedChartType}-${refreshKey}`}
+            chartType={selectedChartType}
+            height={400}
           />
-        </Grid>
-      </Grid>
+        </CardContent>
+      </Card>
       
       {/* Activities and Events (Tabs on Mobile) */}
       {isMobile ? (

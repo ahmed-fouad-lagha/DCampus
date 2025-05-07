@@ -46,9 +46,20 @@
     "welcomeMessage": "Welcome to your DCampus dashboard",
     "academicPerformance": "Academic Performance",
     "aiInsights": "AI Insights",
+    "aiInsightsTitle": "AI Insights",
+    "aiInsightsDescription": "Personalized insights to help you succeed",
     "recentActivity": "Recent Activity",
+    "recentActivityTitle": "Recent Activity",
     "upcomingEvents": "Upcoming Events",
-    "viewAll": "View All"
+    "upcomingEventsTitle": "Upcoming Events",
+    "upcomingEventsLabel": "Upcoming academic events",
+    "viewAll": "View All",
+    "activeCoursesLabel": "Active courses this semester",
+    "coursesTotalLabel": "Total courses enrolled",
+    "viewAllCourses": "View all courses",
+    "nearestEventLabel": "Nearest upcoming event",
+    "viewAllEvents": "View all events",
+    "analyticsTitle": "Academic Analytics"
   },
   "metrics": {
     "student": {
@@ -79,7 +90,9 @@
     "userManagement": "User Management",
     "profile": "Profile",
     "settings": "Settings",
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "aiInsights": "AI Insights",
+    "analytics": "Analytics"
   },
   "charts": {
     "line": "Line",
@@ -104,11 +117,246 @@
     "delete": "Delete",
     "edit": "Edit",
     "submit": "Submit",
-    "view": "View"
+    "view": "View",
+    "close": "Close",
+    "apply": "Apply",
+    "reset": "Reset",
+    "download": "Download",
+    "share": "Share",
+    "explore": "Explore",
+    "details": "Details"
   },
   "insights": {
     "relevantScore": "% relevant",
     "viewAll": "View All Insights"
+  },
+  "ai": {
+    "insights": {
+      "title": "AI Insights",
+      "performancePrediction": "Performance Prediction",
+      "dropoutRiskAnalysis": "Dropout Risk Analysis",
+      "courseRecommendations": "Course Recommendations",
+      "resourceRecommendations": "Resource Recommendations",
+      "atRiskStudents": "At-Risk Students",
+      "courseEffectivenessAnalysis": "Course Effectiveness Analysis",
+      "enrollmentPrediction": "Enrollment Prediction",
+      "resourceUtilization": "Resource Utilization",
+      "refresh": "Refresh insights",
+      "viewDetails": "View Detailed Insights",
+      "noInsights": "No AI insights available at this time.",
+      "loadError": "Failed to load AI insights. Please try again later.",
+      "projectedGrade": "Projected Grade",
+      "confidence": "Confidence",
+      "riskFactors": "Risk Factors",
+      "noRiskFactors": "No significant risk factors identified.",
+      "recommendedActions": "Recommended Actions",
+      "dropoutRisk": "Dropout Risk",
+      "withinTimeframe": "within",
+      "topCourseRecommendation": "Top Recommendation",
+      "match": "match",
+      "recommendedResource": "Recommended Resource",
+      "studentsNeedSupport": "students may require additional support",
+      "coursePerformingWell": "Course performing",
+      "aboveAverage": "above average",
+      "expectedEnrollment": "Expected enrollment",
+      "fromPrevious": "from previous semester",
+      "resourceAllocationSuggestion": "Recommendations for optimizing campus resources",
+      "confidenceScore": "Confidence Score",
+      "personalizedCourses": "Personalized Course Recommendations",
+      "personalizedResources": "Personalized Learning Resources",
+      "credits": "Credits",
+      "matchScore": "Match Score",
+      "rating": "Rating",
+      "whyThisCourse": "Why This Course",
+      "whyThisResource": "Why This Resource",
+      "prerequisites": "Prerequisites",
+      "accessResource": "Access Resource",
+      "minutes": "min",
+      "readingMinutes": "min read",
+      "priority": {
+        "high": "Important",
+        "medium": "Notice",
+        "low": "Info"
+      },
+      "trend": {
+        "improving": "Improving",
+        "stable": "Stable",
+        "declining": "Declining"
+      },
+      "difficulty": {
+        "beginner": "Beginner",
+        "intermediate": "Intermediate",
+        "advanced": "Advanced"
+      }
+    },
+    "analytics": {
+      "title": "AI Analytics",
+      "performance": {
+        "title": "Performance Analytics",
+        "description": "Track your academic performance and view AI-powered predictions about your future results.",
+        "currentGrade": "Current Grade",
+        "predictedGrade": "Predicted Grade",
+        "gradeHistory": "Grade History",
+        "courseComparison": "Course Comparison",
+        "strengthsAndWeaknesses": "Strengths & Weaknesses",
+        "improvementAreas": "Areas for Improvement",
+        "studyRecommendations": "Study Recommendations"
+      },
+      "engagement": {
+        "title": "Engagement Analytics",
+        "description": "Understand how you interact with course materials and identify optimal learning patterns.",
+        "overallEngagement": "Overall Engagement",
+        "resourceUsage": "Resource Usage",
+        "participationScore": "Participation Score",
+        "timeSpent": "Time Spent",
+        "peakTimes": "Peak Learning Times",
+        "engagementTrends": "Engagement Trends"
+      },
+      "recommendations": {
+        "title": "Learning Recommendations",
+        "description": "Get personalized recommendations for courses, resources, and learning strategies.",
+        "courses": "Recommended Courses",
+        "resources": "Recommended Resources",
+        "learningPath": "Suggested Learning Path",
+        "skillGaps": "Skill Gap Analysis",
+        "careerAlign": "Career Alignment"
+      }
+    },
+    "faculty": {
+      "title": "Faculty AI Hub",
+      "description": "AI-powered tools to enhance teaching effectiveness and student support.",
+      "studentRisk": {
+        "title": "Student Risk Analysis",
+        "description": "Identify students who may need additional support based on performance patterns.",
+        "riskLevels": "Risk Levels",
+        "factorsInfluencing": "Influencing Factors",
+        "interventions": "Recommended Interventions",
+        "contactStudents": "Contact Selected Students"
+      },
+      "courseAnalysis": {
+        "title": "Course Effectiveness Analysis",
+        "description": "Analyze how well your course is performing and identify areas for improvement.",
+        "overallScore": "Overall Effectiveness Score",
+        "contentEngagement": "Content Engagement",
+        "assessmentEffectiveness": "Assessment Effectiveness",
+        "studentFeedback": "Student Feedback Analysis",
+        "improvementSuggestions": "Improvement Suggestions"
+      },
+      "contentGenerator": {
+        "title": "Course Content Generator",
+        "description": "Generate quizzes, assignments and other educational content using AI.",
+        "generateQuiz": "Generate Quiz",
+        "generateAssignment": "Generate Assignment",
+        "generateSyllabus": "Generate Syllabus",
+        "customizeContent": "Customize Content"
+      }
+    },
+    "admin": {
+      "title": "Admin AI Dashboard",
+      "description": "Institution-wide analytics and AI-driven insights for strategic planning.",
+      "enrollment": {
+        "title": "Enrollment Prediction",
+        "description": "Forecast future enrollment trends based on historical data and external factors.",
+        "overallTrend": "Overall Trend",
+        "byDepartment": "By Department",
+        "byProgram": "By Program",
+        "seasonalFactors": "Seasonal Factors",
+        "demographicTrends": "Demographic Trends"
+      },
+      "resourceOptimization": {
+        "title": "Resource Optimization",
+        "description": "AI-powered recommendations for optimizing campus resources and facilities.",
+        "classroomUtilization": "Classroom Utilization",
+        "staffingNeeds": "Staffing Needs",
+        "budgetAllocation": "Budget Allocation Recommendations",
+        "facilityUsage": "Facility Usage Patterns",
+        "optimizationSuggestions": "Optimization Suggestions"
+      },
+      "institutionalPerformance": {
+        "title": "Institutional Performance",
+        "description": "Comprehensive analysis of institution-wide academic performance metrics.",
+        "overallGPA": "Overall GPA Trends",
+        "retentionRates": "Retention Rates",
+        "graduationRates": "Graduation Rates",
+        "departmentComparison": "Department Comparison",
+        "benchmarking": "Industry Benchmarking"
+      }
+    }
+  },
+  "analytics": {
+    "titles": {
+      "performance": "Performance",
+      "attendance": "Attendance",
+      "engagement": "Engagement",
+      "enrollment": "Enrollment",
+      "resources": "Resources",
+      "analytics": "Analytics"
+    },
+    "performance": {
+      "yourPerformance": "Your Performance",
+      "classAverage": "Class Average",
+      "prediction": "Prediction",
+      "grade": "Grade"
+    },
+    "attendance": {
+      "yourAttendance": "Your Attendance",
+      "classAverage": "Class Average",
+      "attendanceRate": "Attendance Rate"
+    },
+    "engagement": {
+      "discussions": "Discussion Participation",
+      "assignments": "Assignments Completion",
+      "resources": "Resources Accessed",
+      "quizzes": "Quiz Attempts",
+      "projects": "Project Participation"
+    },
+    "enrollment": {
+      "total": "Total Enrollment",
+      "students": "Students"
+    },
+    "resources": {
+      "videos": "Video Content",
+      "readings": "Reading Materials",
+      "practice": "Practice Exercises",
+      "discussions": "Discussion Forums",
+      "assessments": "Assessments",
+      "yourUsage": "Your Usage",
+      "peerAverage": "Peer Average",
+      "hoursSpent": "Hours Spent"
+    },
+    "timeRanges": {
+      "period": "Period",
+      "sevenDays": "7 Days",
+      "thirtyDays": "30 Days",
+      "ninetyDays": "90 Days",
+      "semester": "Semester",
+      "year": "Year",
+      "lastSevenDays": "Last 7 Days",
+      "lastThirtyDays": "Last 30 Days",
+      "lastNinetyDays": "Last 90 Days",
+      "currentSemester": "Current Semester",
+      "bySemester": "By Semester",
+      "lastYear": "Last Year",
+      "byYear": "By Year",
+      "timeframe": "Timeframe"
+    },
+    "actions": {
+      "download": "Download Chart",
+      "share": "Share Chart",
+      "viewDetails": "View Details",
+      "compare": "Compare"
+    },
+    "errors": {
+      "loadFailed": "Failed to load chart data",
+      "noData": "No data available"
+    },
+    "filters": {
+      "title": "Filters",
+      "course": "Course",
+      "timeRange": "Time Range",
+      "compareWith": "Compare With",
+      "showPrediction": "Show Prediction"
+    }
   },
   "search": {
     "placeholder": "Search courses, events...",

@@ -1,0 +1,325 @@
+course_id,semester,enrollment,department,course_level,course_name,academic_year,semester_index
+COURSE1000,Fall 2020,12,Social Sciences,400,Senior Social Sciences,2020-2021,0
+COURSE1000,Spring 2021,12,Social Sciences,400,Senior Social Sciences,2020-2021,1
+COURSE1000,Fall 2021,17,Social Sciences,400,Senior Social Sciences,2021-2022,2
+COURSE1000,Spring 2022,19,Social Sciences,400,Senior Social Sciences,2021-2022,3
+COURSE1000,Fall 2022,16,Social Sciences,400,Senior Social Sciences,2022-2023,4
+COURSE1000,Spring 2023,18,Social Sciences,400,Senior Social Sciences,2022-2023,5
+COURSE1000,Fall 2023,13,Social Sciences,400,Senior Social Sciences,2023-2024,6
+COURSE1000,Spring 2024,16,Social Sciences,400,Senior Social Sciences,2023-2024,7
+COURSE1001,Fall 2020,25,Biology,100,Basic Biology,2020-2021,0
+COURSE1001,Spring 2021,43,Biology,100,Basic Biology,2020-2021,1
+COURSE1001,Fall 2021,34,Biology,100,Basic Biology,2021-2022,2
+COURSE1001,Spring 2022,48,Biology,100,Basic Biology,2021-2022,3
+COURSE1001,Fall 2022,35,Biology,100,Basic Biology,2022-2023,4
+COURSE1001,Spring 2023,63,Biology,100,Basic Biology,2022-2023,5
+COURSE1001,Fall 2023,48,Biology,100,Basic Biology,2023-2024,6
+COURSE1001,Spring 2024,58,Biology,100,Basic Biology,2023-2024,7
+COURSE1002,Fall 2020,6,Mathematics,400,Advanced Topics in Mathematics,2020-2021,0
+COURSE1002,Spring 2022,13,Mathematics,400,Advanced Topics in Mathematics,2021-2022,3
+COURSE1002,Fall 2022,10,Mathematics,400,Advanced Topics in Mathematics,2022-2023,4
+COURSE1002,Spring 2024,13,Mathematics,400,Advanced Topics in Mathematics,2023-2024,7
+COURSE1003,Fall 2020,131,Arts,100,Basic Arts,2020-2021,0
+COURSE1003,Spring 2021,102,Arts,100,Basic Arts,2020-2021,1
+COURSE1003,Fall 2021,178,Arts,100,Basic Arts,2021-2022,2
+COURSE1003,Spring 2022,135,Arts,100,Basic Arts,2021-2022,3
+COURSE1003,Fall 2022,144,Arts,100,Basic Arts,2022-2023,4
+COURSE1003,Spring 2023,124,Arts,100,Basic Arts,2022-2023,5
+COURSE1003,Fall 2023,136,Arts,100,Basic Arts,2023-2024,6
+COURSE1003,Spring 2024,132,Arts,100,Basic Arts,2023-2024,7
+COURSE1004,Fall 2020,22,Engineering,400,Seminar in Engineering,2020-2021,0
+COURSE1004,Spring 2022,43,Engineering,400,Seminar in Engineering,2021-2022,3
+COURSE1004,Fall 2022,31,Engineering,400,Seminar in Engineering,2022-2023,4
+COURSE1004,Spring 2024,51,Engineering,400,Seminar in Engineering,2023-2024,7
+COURSE1005,Fall 2020,46,Social Sciences,200,Methods of Social Sciences,2020-2021,0
+COURSE1005,Spring 2022,40,Social Sciences,200,Methods of Social Sciences,2021-2022,3
+COURSE1005,Fall 2022,49,Social Sciences,200,Methods of Social Sciences,2022-2023,4
+COURSE1005,Spring 2024,43,Social Sciences,200,Methods of Social Sciences,2023-2024,7
+COURSE1006,Fall 2020,76,Chemistry,200,Intermediate Chemistry,2020-2021,0
+COURSE1006,Spring 2021,87,Chemistry,200,Intermediate Chemistry,2020-2021,1
+COURSE1006,Fall 2021,91,Chemistry,200,Intermediate Chemistry,2021-2022,2
+COURSE1006,Spring 2022,144,Chemistry,200,Intermediate Chemistry,2021-2022,3
+COURSE1006,Fall 2022,82,Chemistry,200,Intermediate Chemistry,2022-2023,4
+COURSE1006,Spring 2023,130,Chemistry,200,Intermediate Chemistry,2022-2023,5
+COURSE1006,Fall 2023,88,Chemistry,200,Intermediate Chemistry,2023-2024,6
+COURSE1006,Spring 2024,138,Chemistry,200,Intermediate Chemistry,2023-2024,7
+COURSE1007,Fall 2020,7,Computer Science,400,Research in Computer Science,2020-2021,0
+COURSE1007,Fall 2021,11,Computer Science,400,Research in Computer Science,2021-2022,2
+COURSE1007,Fall 2022,11,Computer Science,400,Research in Computer Science,2022-2023,4
+COURSE1007,Fall 2023,11,Computer Science,400,Research in Computer Science,2023-2024,6
+COURSE1008,Fall 2020,78,Arts,200,Methods of Arts,2020-2021,0
+COURSE1008,Spring 2021,81,Arts,200,Methods of Arts,2020-2021,1
+COURSE1008,Fall 2021,89,Arts,200,Methods of Arts,2021-2022,2
+COURSE1008,Spring 2022,118,Arts,200,Methods of Arts,2021-2022,3
+COURSE1008,Fall 2022,87,Arts,200,Methods of Arts,2022-2023,4
+COURSE1008,Spring 2023,98,Arts,200,Methods of Arts,2022-2023,5
+COURSE1008,Fall 2023,95,Arts,200,Methods of Arts,2023-2024,6
+COURSE1008,Spring 2024,109,Arts,200,Methods of Arts,2023-2024,7
+COURSE1009,Fall 2020,57,Physics,200,Topics in Physics,2020-2021,0
+COURSE1009,Spring 2022,139,Physics,200,Topics in Physics,2021-2022,3
+COURSE1009,Fall 2022,92,Physics,200,Topics in Physics,2022-2023,4
+COURSE1009,Spring 2024,163,Physics,200,Topics in Physics,2023-2024,7
+COURSE1010,Fall 2020,26,Mathematics,300,Advanced Mathematics,2020-2021,0
+COURSE1010,Spring 2021,46,Mathematics,300,Advanced Mathematics,2020-2021,1
+COURSE1010,Fall 2021,44,Mathematics,300,Advanced Mathematics,2021-2022,2
+COURSE1010,Spring 2022,50,Mathematics,300,Advanced Mathematics,2021-2022,3
+COURSE1010,Fall 2022,38,Mathematics,300,Advanced Mathematics,2022-2023,4
+COURSE1010,Spring 2023,67,Mathematics,300,Advanced Mathematics,2022-2023,5
+COURSE1010,Fall 2023,48,Mathematics,300,Advanced Mathematics,2023-2024,6
+COURSE1010,Spring 2024,62,Mathematics,300,Advanced Mathematics,2023-2024,7
+COURSE1011,Fall 2020,21,Computer Science,100,Principles of Computer Science,2020-2021,0
+COURSE1011,Spring 2021,40,Computer Science,100,Principles of Computer Science,2020-2021,1
+COURSE1011,Fall 2021,44,Computer Science,100,Principles of Computer Science,2021-2022,2
+COURSE1011,Spring 2022,54,Computer Science,100,Principles of Computer Science,2021-2022,3
+COURSE1011,Fall 2022,30,Computer Science,100,Principles of Computer Science,2022-2023,4
+COURSE1011,Spring 2023,41,Computer Science,100,Principles of Computer Science,2022-2023,5
+COURSE1011,Fall 2023,32,Computer Science,100,Principles of Computer Science,2023-2024,6
+COURSE1011,Spring 2024,32,Computer Science,100,Principles of Computer Science,2023-2024,7
+COURSE1012,Fall 2020,18,Biology,300,Theory of Biology,2020-2021,0
+COURSE1012,Spring 2021,29,Biology,300,Theory of Biology,2020-2021,1
+COURSE1012,Fall 2021,29,Biology,300,Theory of Biology,2021-2022,2
+COURSE1012,Spring 2022,35,Biology,300,Theory of Biology,2021-2022,3
+COURSE1012,Fall 2022,24,Biology,300,Theory of Biology,2022-2023,4
+COURSE1012,Spring 2023,42,Biology,300,Theory of Biology,2022-2023,5
+COURSE1012,Fall 2023,31,Biology,300,Theory of Biology,2023-2024,6
+COURSE1012,Spring 2024,33,Biology,300,Theory of Biology,2023-2024,7
+COURSE1013,Fall 2020,23,Social Sciences,200,Intermediate Social Sciences,2020-2021,0
+COURSE1013,Spring 2022,54,Social Sciences,200,Intermediate Social Sciences,2021-2022,3
+COURSE1013,Fall 2022,42,Social Sciences,200,Intermediate Social Sciences,2022-2023,4
+COURSE1013,Spring 2024,57,Social Sciences,200,Intermediate Social Sciences,2023-2024,7
+COURSE1014,Fall 2020,42,Social Sciences,300,Analysis of Social Sciences,2020-2021,0
+COURSE1014,Spring 2021,45,Social Sciences,300,Analysis of Social Sciences,2020-2021,1
+COURSE1014,Fall 2021,59,Social Sciences,300,Analysis of Social Sciences,2021-2022,2
+COURSE1014,Spring 2022,56,Social Sciences,300,Analysis of Social Sciences,2021-2022,3
+COURSE1014,Fall 2022,45,Social Sciences,300,Analysis of Social Sciences,2022-2023,4
+COURSE1014,Spring 2023,32,Social Sciences,300,Analysis of Social Sciences,2022-2023,5
+COURSE1014,Fall 2023,56,Social Sciences,300,Analysis of Social Sciences,2023-2024,6
+COURSE1014,Spring 2024,57,Social Sciences,300,Analysis of Social Sciences,2023-2024,7
+COURSE1015,Spring 2021,29,Engineering,100,Principles of Engineering,2020-2021,1
+COURSE1015,Spring 2022,46,Engineering,100,Principles of Engineering,2021-2022,3
+COURSE1015,Spring 2023,45,Engineering,100,Principles of Engineering,2022-2023,5
+COURSE1015,Spring 2024,56,Engineering,100,Principles of Engineering,2023-2024,7
+COURSE1016,Fall 2020,23,Social Sciences,300,Analysis of Social Sciences,2020-2021,0
+COURSE1016,Spring 2021,24,Social Sciences,300,Analysis of Social Sciences,2020-2021,1
+COURSE1016,Fall 2021,30,Social Sciences,300,Analysis of Social Sciences,2021-2022,2
+COURSE1016,Spring 2022,32,Social Sciences,300,Analysis of Social Sciences,2021-2022,3
+COURSE1016,Fall 2022,24,Social Sciences,300,Analysis of Social Sciences,2022-2023,4
+COURSE1016,Spring 2023,28,Social Sciences,300,Analysis of Social Sciences,2022-2023,5
+COURSE1016,Fall 2023,31,Social Sciences,300,Analysis of Social Sciences,2023-2024,6
+COURSE1016,Spring 2024,29,Social Sciences,300,Analysis of Social Sciences,2023-2024,7
+COURSE1017,Fall 2020,44,Engineering,300,Special Topics in Engineering,2020-2021,0
+COURSE1017,Fall 2021,56,Engineering,300,Special Topics in Engineering,2021-2022,2
+COURSE1017,Fall 2022,65,Engineering,300,Special Topics in Engineering,2022-2023,4
+COURSE1017,Fall 2023,57,Engineering,300,Special Topics in Engineering,2023-2024,6
+COURSE1018,Fall 2020,46,Business,300,Theory of Business,2020-2021,0
+COURSE1018,Spring 2021,31,Business,300,Theory of Business,2020-2021,1
+COURSE1018,Fall 2021,51,Business,300,Theory of Business,2021-2022,2
+COURSE1018,Spring 2022,49,Business,300,Theory of Business,2021-2022,3
+COURSE1018,Fall 2022,56,Business,300,Theory of Business,2022-2023,4
+COURSE1018,Spring 2023,48,Business,300,Theory of Business,2022-2023,5
+COURSE1018,Fall 2023,66,Business,300,Theory of Business,2023-2024,6
+COURSE1018,Spring 2024,37,Business,300,Theory of Business,2023-2024,7
+COURSE1019,Fall 2020,94,Chemistry,100,Fundamentals of Chemistry,2020-2021,0
+COURSE1019,Spring 2021,118,Chemistry,100,Fundamentals of Chemistry,2020-2021,1
+COURSE1019,Fall 2021,121,Chemistry,100,Fundamentals of Chemistry,2021-2022,2
+COURSE1019,Spring 2022,180,Chemistry,100,Fundamentals of Chemistry,2021-2022,3
+COURSE1019,Fall 2022,154,Chemistry,100,Fundamentals of Chemistry,2022-2023,4
+COURSE1019,Spring 2023,142,Chemistry,100,Fundamentals of Chemistry,2022-2023,5
+COURSE1019,Fall 2023,150,Chemistry,100,Fundamentals of Chemistry,2023-2024,6
+COURSE1019,Spring 2024,194,Chemistry,100,Fundamentals of Chemistry,2023-2024,7
+COURSE1020,Fall 2020,6,Social Sciences,400,Senior Social Sciences,2020-2021,0
+COURSE1020,Spring 2021,10,Social Sciences,400,Senior Social Sciences,2020-2021,1
+COURSE1020,Fall 2021,8,Social Sciences,400,Senior Social Sciences,2021-2022,2
+COURSE1020,Spring 2022,16,Social Sciences,400,Senior Social Sciences,2021-2022,3
+COURSE1020,Fall 2022,9,Social Sciences,400,Senior Social Sciences,2022-2023,4
+COURSE1020,Spring 2023,11,Social Sciences,400,Senior Social Sciences,2022-2023,5
+COURSE1020,Fall 2023,10,Social Sciences,400,Senior Social Sciences,2023-2024,6
+COURSE1020,Spring 2024,15,Social Sciences,400,Senior Social Sciences,2023-2024,7
+COURSE1021,Fall 2020,40,Chemistry,300,Theory of Chemistry,2020-2021,0
+COURSE1021,Spring 2021,36,Chemistry,300,Theory of Chemistry,2020-2021,1
+COURSE1021,Fall 2021,48,Chemistry,300,Theory of Chemistry,2021-2022,2
+COURSE1021,Spring 2022,52,Chemistry,300,Theory of Chemistry,2021-2022,3
+COURSE1021,Fall 2022,41,Chemistry,300,Theory of Chemistry,2022-2023,4
+COURSE1021,Spring 2023,45,Chemistry,300,Theory of Chemistry,2022-2023,5
+COURSE1021,Fall 2023,45,Chemistry,300,Theory of Chemistry,2023-2024,6
+COURSE1021,Spring 2024,39,Chemistry,300,Theory of Chemistry,2023-2024,7
+COURSE1022,Fall 2020,47,Business,100,Principles of Business,2020-2021,0
+COURSE1022,Spring 2021,46,Business,100,Principles of Business,2020-2021,1
+COURSE1022,Fall 2021,83,Business,100,Principles of Business,2021-2022,2
+COURSE1022,Spring 2022,68,Business,100,Principles of Business,2021-2022,3
+COURSE1022,Fall 2022,67,Business,100,Principles of Business,2022-2023,4
+COURSE1022,Spring 2023,65,Business,100,Principles of Business,2022-2023,5
+COURSE1022,Fall 2023,69,Business,100,Principles of Business,2023-2024,6
+COURSE1022,Spring 2024,66,Business,100,Principles of Business,2023-2024,7
+COURSE1023,Fall 2020,34,Chemistry,400,Senior Chemistry,2020-2021,0
+COURSE1023,Spring 2021,21,Chemistry,400,Senior Chemistry,2020-2021,1
+COURSE1023,Fall 2021,42,Chemistry,400,Senior Chemistry,2021-2022,2
+COURSE1023,Spring 2022,32,Chemistry,400,Senior Chemistry,2021-2022,3
+COURSE1023,Fall 2022,43,Chemistry,400,Senior Chemistry,2022-2023,4
+COURSE1023,Spring 2023,29,Chemistry,400,Senior Chemistry,2022-2023,5
+COURSE1023,Fall 2023,49,Chemistry,400,Senior Chemistry,2023-2024,6
+COURSE1023,Spring 2024,30,Chemistry,400,Senior Chemistry,2023-2024,7
+COURSE1024,Fall 2020,79,Social Sciences,200,Topics in Social Sciences,2020-2021,0
+COURSE1024,Spring 2021,59,Social Sciences,200,Topics in Social Sciences,2020-2021,1
+COURSE1024,Fall 2021,92,Social Sciences,200,Topics in Social Sciences,2021-2022,2
+COURSE1024,Spring 2022,97,Social Sciences,200,Topics in Social Sciences,2021-2022,3
+COURSE1024,Fall 2022,110,Social Sciences,200,Topics in Social Sciences,2022-2023,4
+COURSE1024,Spring 2023,80,Social Sciences,200,Topics in Social Sciences,2022-2023,5
+COURSE1024,Fall 2023,101,Social Sciences,200,Topics in Social Sciences,2023-2024,6
+COURSE1024,Spring 2024,113,Social Sciences,200,Topics in Social Sciences,2023-2024,7
+COURSE1025,Fall 2020,13,Arts,300,Advanced Arts,2020-2021,0
+COURSE1025,Spring 2021,15,Arts,300,Advanced Arts,2020-2021,1
+COURSE1025,Fall 2021,20,Arts,300,Advanced Arts,2021-2022,2
+COURSE1025,Spring 2022,29,Arts,300,Advanced Arts,2021-2022,3
+COURSE1025,Fall 2022,17,Arts,300,Advanced Arts,2022-2023,4
+COURSE1025,Spring 2023,27,Arts,300,Advanced Arts,2022-2023,5
+COURSE1025,Fall 2023,19,Arts,300,Advanced Arts,2023-2024,6
+COURSE1025,Spring 2024,27,Arts,300,Advanced Arts,2023-2024,7
+COURSE1026,Fall 2020,98,Mathematics,100,Basic Mathematics,2020-2021,0
+COURSE1026,Spring 2021,77,Mathematics,100,Basic Mathematics,2020-2021,1
+COURSE1026,Fall 2021,168,Mathematics,100,Basic Mathematics,2021-2022,2
+COURSE1026,Spring 2022,124,Mathematics,100,Basic Mathematics,2021-2022,3
+COURSE1026,Fall 2022,145,Mathematics,100,Basic Mathematics,2022-2023,4
+COURSE1026,Spring 2023,130,Mathematics,100,Basic Mathematics,2022-2023,5
+COURSE1026,Fall 2023,170,Mathematics,100,Basic Mathematics,2023-2024,6
+COURSE1026,Spring 2024,142,Mathematics,100,Basic Mathematics,2023-2024,7
+COURSE1027,Fall 2020,38,Computer Science,300,Analysis of Computer Science,2020-2021,0
+COURSE1027,Spring 2021,37,Computer Science,300,Analysis of Computer Science,2020-2021,1
+COURSE1027,Fall 2021,56,Computer Science,300,Analysis of Computer Science,2021-2022,2
+COURSE1027,Spring 2022,50,Computer Science,300,Analysis of Computer Science,2021-2022,3
+COURSE1027,Fall 2022,50,Computer Science,300,Analysis of Computer Science,2022-2023,4
+COURSE1027,Spring 2023,45,Computer Science,300,Analysis of Computer Science,2022-2023,5
+COURSE1027,Fall 2023,56,Computer Science,300,Analysis of Computer Science,2023-2024,6
+COURSE1027,Spring 2024,51,Computer Science,300,Analysis of Computer Science,2023-2024,7
+COURSE1028,Fall 2020,101,Computer Science,100,Basic Computer Science,2020-2021,0
+COURSE1028,Spring 2021,86,Computer Science,100,Basic Computer Science,2020-2021,1
+COURSE1028,Fall 2021,166,Computer Science,100,Basic Computer Science,2021-2022,2
+COURSE1028,Spring 2022,130,Computer Science,100,Basic Computer Science,2021-2022,3
+COURSE1028,Fall 2022,155,Computer Science,100,Basic Computer Science,2022-2023,4
+COURSE1028,Spring 2023,119,Computer Science,100,Basic Computer Science,2022-2023,5
+COURSE1028,Fall 2023,156,Computer Science,100,Basic Computer Science,2023-2024,6
+COURSE1028,Spring 2024,151,Computer Science,100,Basic Computer Science,2023-2024,7
+COURSE1029,Spring 2021,27,Engineering,200,Topics in Engineering,2020-2021,1
+COURSE1029,Fall 2021,54,Engineering,200,Topics in Engineering,2021-2022,2
+COURSE1029,Spring 2023,51,Engineering,200,Topics in Engineering,2022-2023,5
+COURSE1029,Fall 2023,62,Engineering,200,Topics in Engineering,2023-2024,6
+COURSE1030,Fall 2020,74,Physics,100,Introduction to Physics,2020-2021,0
+COURSE1030,Spring 2021,52,Physics,100,Introduction to Physics,2020-2021,1
+COURSE1030,Fall 2021,117,Physics,100,Introduction to Physics,2021-2022,2
+COURSE1030,Spring 2022,81,Physics,100,Introduction to Physics,2021-2022,3
+COURSE1030,Fall 2022,85,Physics,100,Introduction to Physics,2022-2023,4
+COURSE1030,Spring 2023,67,Physics,100,Introduction to Physics,2022-2023,5
+COURSE1030,Fall 2023,97,Physics,100,Introduction to Physics,2023-2024,6
+COURSE1030,Spring 2024,78,Physics,100,Introduction to Physics,2023-2024,7
+COURSE1031,Fall 2020,21,Engineering,300,Special Topics in Engineering,2020-2021,0
+COURSE1031,Spring 2021,13,Engineering,300,Special Topics in Engineering,2020-2021,1
+COURSE1031,Fall 2021,29,Engineering,300,Special Topics in Engineering,2021-2022,2
+COURSE1031,Spring 2022,15,Engineering,300,Special Topics in Engineering,2021-2022,3
+COURSE1031,Fall 2022,29,Engineering,300,Special Topics in Engineering,2022-2023,4
+COURSE1031,Spring 2023,19,Engineering,300,Special Topics in Engineering,2022-2023,5
+COURSE1031,Fall 2023,31,Engineering,300,Special Topics in Engineering,2023-2024,6
+COURSE1031,Spring 2024,18,Engineering,300,Special Topics in Engineering,2023-2024,7
+COURSE1032,Fall 2020,44,Business,100,Basic Business,2020-2021,0
+COURSE1032,Fall 2021,62,Business,100,Basic Business,2021-2022,2
+COURSE1032,Fall 2022,58,Business,100,Basic Business,2022-2023,4
+COURSE1032,Fall 2023,68,Business,100,Basic Business,2023-2024,6
+COURSE1033,Spring 2021,18,Physics,400,Research in Physics,2020-2021,1
+COURSE1033,Spring 2022,33,Physics,400,Research in Physics,2021-2022,3
+COURSE1033,Spring 2023,21,Physics,400,Research in Physics,2022-2023,5
+COURSE1033,Spring 2024,33,Physics,400,Research in Physics,2023-2024,7
+COURSE1034,Spring 2021,15,Computer Science,400,Advanced Topics in Computer Science,2020-2021,1
+COURSE1034,Fall 2021,41,Computer Science,400,Advanced Topics in Computer Science,2021-2022,2
+COURSE1034,Spring 2023,19,Computer Science,400,Advanced Topics in Computer Science,2022-2023,5
+COURSE1034,Fall 2023,31,Computer Science,400,Advanced Topics in Computer Science,2023-2024,6
+COURSE1035,Fall 2020,89,Chemistry,100,Fundamentals of Chemistry,2020-2021,0
+COURSE1035,Spring 2021,119,Chemistry,100,Fundamentals of Chemistry,2020-2021,1
+COURSE1035,Fall 2021,147,Chemistry,100,Fundamentals of Chemistry,2021-2022,2
+COURSE1035,Spring 2022,173,Chemistry,100,Fundamentals of Chemistry,2021-2022,3
+COURSE1035,Fall 2022,149,Chemistry,100,Fundamentals of Chemistry,2022-2023,4
+COURSE1035,Spring 2023,163,Chemistry,100,Fundamentals of Chemistry,2022-2023,5
+COURSE1035,Fall 2023,175,Chemistry,100,Fundamentals of Chemistry,2023-2024,6
+COURSE1035,Spring 2024,166,Chemistry,100,Fundamentals of Chemistry,2023-2024,7
+COURSE1036,Fall 2020,6,Engineering,400,Senior Engineering,2020-2021,0
+COURSE1036,Spring 2021,8,Engineering,400,Senior Engineering,2020-2021,1
+COURSE1036,Fall 2021,10,Engineering,400,Senior Engineering,2021-2022,2
+COURSE1036,Spring 2022,12,Engineering,400,Senior Engineering,2021-2022,3
+COURSE1036,Fall 2022,7,Engineering,400,Senior Engineering,2022-2023,4
+COURSE1036,Spring 2023,13,Engineering,400,Senior Engineering,2022-2023,5
+COURSE1036,Fall 2023,8,Engineering,400,Senior Engineering,2023-2024,6
+COURSE1036,Spring 2024,11,Engineering,400,Senior Engineering,2023-2024,7
+COURSE1037,Spring 2021,22,Biology,400,Advanced Topics in Biology,2020-2021,1
+COURSE1037,Fall 2021,24,Biology,400,Advanced Topics in Biology,2021-2022,2
+COURSE1037,Spring 2023,30,Biology,400,Advanced Topics in Biology,2022-2023,5
+COURSE1037,Fall 2023,31,Biology,400,Advanced Topics in Biology,2023-2024,6
+COURSE1038,Fall 2020,52,Engineering,200,Topics in Engineering,2020-2021,0
+COURSE1038,Spring 2021,36,Engineering,200,Topics in Engineering,2020-2021,1
+COURSE1038,Fall 2021,80,Engineering,200,Topics in Engineering,2021-2022,2
+COURSE1038,Spring 2022,54,Engineering,200,Topics in Engineering,2021-2022,3
+COURSE1038,Fall 2022,74,Engineering,200,Topics in Engineering,2022-2023,4
+COURSE1038,Spring 2023,57,Engineering,200,Topics in Engineering,2022-2023,5
+COURSE1038,Fall 2023,77,Engineering,200,Topics in Engineering,2023-2024,6
+COURSE1038,Spring 2024,58,Engineering,200,Topics in Engineering,2023-2024,7
+COURSE1039,Fall 2020,96,Mathematics,100,Fundamentals of Mathematics,2020-2021,0
+COURSE1039,Fall 2021,160,Mathematics,100,Fundamentals of Mathematics,2021-2022,2
+COURSE1039,Fall 2022,131,Mathematics,100,Fundamentals of Mathematics,2022-2023,4
+COURSE1039,Fall 2023,145,Mathematics,100,Fundamentals of Mathematics,2023-2024,6
+COURSE1040,Spring 2021,25,Engineering,400,Seminar in Engineering,2020-2021,1
+COURSE1040,Spring 2022,35,Engineering,400,Seminar in Engineering,2021-2022,3
+COURSE1040,Spring 2023,30,Engineering,400,Seminar in Engineering,2022-2023,5
+COURSE1040,Spring 2024,36,Engineering,400,Seminar in Engineering,2023-2024,7
+COURSE1041,Fall 2020,29,Arts,300,Special Topics in Arts,2020-2021,0
+COURSE1041,Spring 2021,36,Arts,300,Special Topics in Arts,2020-2021,1
+COURSE1041,Fall 2021,43,Arts,300,Special Topics in Arts,2021-2022,2
+COURSE1041,Spring 2022,58,Arts,300,Special Topics in Arts,2021-2022,3
+COURSE1041,Fall 2022,50,Arts,300,Special Topics in Arts,2022-2023,4
+COURSE1041,Spring 2023,54,Arts,300,Special Topics in Arts,2022-2023,5
+COURSE1041,Fall 2023,48,Arts,300,Special Topics in Arts,2023-2024,6
+COURSE1041,Spring 2024,51,Arts,300,Special Topics in Arts,2023-2024,7
+COURSE1042,Fall 2020,29,Business,300,Theory of Business,2020-2021,0
+COURSE1042,Spring 2022,40,Business,300,Theory of Business,2021-2022,3
+COURSE1042,Fall 2022,32,Business,300,Theory of Business,2022-2023,4
+COURSE1042,Spring 2024,41,Business,300,Theory of Business,2023-2024,7
+COURSE1043,Fall 2020,88,Mathematics,100,Fundamentals of Mathematics,2020-2021,0
+COURSE1043,Spring 2022,108,Mathematics,100,Fundamentals of Mathematics,2021-2022,3
+COURSE1043,Fall 2022,133,Mathematics,100,Fundamentals of Mathematics,2022-2023,4
+COURSE1043,Spring 2024,87,Mathematics,100,Fundamentals of Mathematics,2023-2024,7
+COURSE1044,Fall 2020,57,Biology,200,Methods of Biology,2020-2021,0
+COURSE1044,Fall 2021,79,Biology,200,Methods of Biology,2021-2022,2
+COURSE1044,Fall 2022,53,Biology,200,Methods of Biology,2022-2023,4
+COURSE1044,Fall 2023,77,Biology,200,Methods of Biology,2023-2024,6
+COURSE1045,Fall 2020,25,Computer Science,400,Senior Computer Science,2020-2021,0
+COURSE1045,Spring 2021,25,Computer Science,400,Senior Computer Science,2020-2021,1
+COURSE1045,Fall 2021,27,Computer Science,400,Senior Computer Science,2021-2022,2
+COURSE1045,Spring 2022,37,Computer Science,400,Senior Computer Science,2021-2022,3
+COURSE1045,Fall 2022,22,Computer Science,400,Senior Computer Science,2022-2023,4
+COURSE1045,Spring 2023,32,Computer Science,400,Senior Computer Science,2022-2023,5
+COURSE1045,Fall 2023,26,Computer Science,400,Senior Computer Science,2023-2024,6
+COURSE1045,Spring 2024,27,Computer Science,400,Senior Computer Science,2023-2024,7
+COURSE1046,Fall 2020,47,Social Sciences,200,Topics in Social Sciences,2020-2021,0
+COURSE1046,Spring 2021,43,Social Sciences,200,Topics in Social Sciences,2020-2021,1
+COURSE1046,Fall 2021,62,Social Sciences,200,Topics in Social Sciences,2021-2022,2
+COURSE1046,Spring 2022,68,Social Sciences,200,Topics in Social Sciences,2021-2022,3
+COURSE1046,Fall 2022,58,Social Sciences,200,Topics in Social Sciences,2022-2023,4
+COURSE1046,Spring 2023,62,Social Sciences,200,Topics in Social Sciences,2022-2023,5
+COURSE1046,Fall 2023,66,Social Sciences,200,Topics in Social Sciences,2023-2024,6
+COURSE1046,Spring 2024,66,Social Sciences,200,Topics in Social Sciences,2023-2024,7
+COURSE1047,Spring 2021,55,Physics,100,Basic Physics,2020-2021,1
+COURSE1047,Spring 2022,96,Physics,100,Basic Physics,2021-2022,3
+COURSE1047,Spring 2023,91,Physics,100,Basic Physics,2022-2023,5
+COURSE1047,Spring 2024,88,Physics,100,Basic Physics,2023-2024,7
+COURSE1048,Fall 2020,14,Engineering,300,Theory of Engineering,2020-2021,0
+COURSE1048,Spring 2021,20,Engineering,300,Theory of Engineering,2020-2021,1
+COURSE1048,Fall 2021,25,Engineering,300,Theory of Engineering,2021-2022,2
+COURSE1048,Spring 2022,35,Engineering,300,Theory of Engineering,2021-2022,3
+COURSE1048,Fall 2022,28,Engineering,300,Theory of Engineering,2022-2023,4
+COURSE1048,Spring 2023,34,Engineering,300,Theory of Engineering,2022-2023,5
+COURSE1048,Fall 2023,29,Engineering,300,Theory of Engineering,2023-2024,6
+COURSE1048,Spring 2024,33,Engineering,300,Theory of Engineering,2023-2024,7
+COURSE1049,Fall 2020,51,Arts,200,Applied Arts,2020-2021,0
+COURSE1049,Spring 2021,81,Arts,200,Applied Arts,2020-2021,1
+COURSE1049,Fall 2021,61,Arts,200,Applied Arts,2021-2022,2
+COURSE1049,Spring 2022,121,Arts,200,Applied Arts,2021-2022,3
+COURSE1049,Fall 2022,82,Arts,200,Applied Arts,2022-2023,4
+COURSE1049,Spring 2023,80,Arts,200,Applied Arts,2022-2023,5
+COURSE1049,Fall 2023,59,Arts,200,Applied Arts,2023-2024,6
+COURSE1049,Spring 2024,103,Arts,200,Applied Arts,2023-2024,7

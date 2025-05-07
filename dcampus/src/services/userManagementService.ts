@@ -1,5 +1,10 @@
-import { supabase, auth } from '../config/supabase';
+import { supabase } from '../config/supabase';
 import { Profile, UserRole } from '../types/database.types';
+import axios from 'axios';
+import { debugApiCall, debugBackendConnection } from '../utils/debugUtils';
+
+// API base URL - should be configured from environment variables in production
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
 
 export interface FetchUsersOptions {
   page?: number;
@@ -18,6 +23,26 @@ interface UsersResponse {
   error: Error | null;
 }
 
+// Helper to get auth token
+const getAuthToken = async () => {
+  const { data } = await supabase.auth.getSession();
+  return data.session?.access_token;
+};
+
+// Helper to create request headers with auth token
+const getHeaders = async () => {
+  const token = await getAuthToken();
+  return {
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json'
+  };
+};
+
+// Test backend connection on module load (in development only)
+if (process.env.NODE_ENV === 'development') {
+  debugBackendConnection().catch(err => console.error('Initial backend connection check failed:', err));
+}
+
 /**
  * Fetches users from the database with pagination and filtering options
  */
@@ -31,40 +56,44 @@ export const fetchUsers = async (options: FetchUsersOptions = {}): Promise<Users
       orderBy = { column: 'created_at', order: 'desc' }
     } = options;
     
-    const offset = (page - 1) * limit;
+    // Build query params
+    const params = new URLSearchParams();
+    params.append('page', page.toString());
+    params.append('limit', limit.toString());
+    params.append('sort', orderBy.column.toString());
+    params.append('order', orderBy.order);
     
-    // Start building the query
-    let query = supabase
-      .from('profiles')
-      .select('*', { count: 'exact' });
-    
-    // Apply filters
     if (role) {
-      query = query.eq('role', role);
+      params.append('role', role);
     }
     
-    // Apply search if provided
     if (search) {
-      query = query.or(`first_name.ilike.%${search}%,last_name.ilike.%${search}%`);
+      params.append('search', search);
     }
     
-    // Apply sorting
-    query = query.order(orderBy.column, { ascending: orderBy.order === 'asc' });
+    // Call backend API
+    const headers = await getHeaders();
+    const requestUrl = `${API_URL}/users?${params.toString()}`;
     
-    // Apply pagination
-    query = query.range(offset, offset + limit - 1);
+    debugApiCall(requestUrl, 'GET', { headers });
     
-    // Execute the query
-    const { data, error, count } = await query;
+    const response = await axios.get(requestUrl, { headers });
+    
+    debugApiCall(requestUrl, 'GET', { headers }, response.data);
     
     return {
-      data,
-      count: count || 0,
-      error: error ? new Error(error.message) : null
+      data: response.data.data,
+      count: response.data.pagination.totalItems,
+      error: null
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching users:', error);
-    return { data: null, count: 0, error: error as Error };
+    debugApiCall(`${API_URL}/users`, 'GET', null, null, error);
+    return { 
+      data: null, 
+      count: 0, 
+      error: new Error(error.response?.data?.error || error.message) 
+    };
   }
 };
 
@@ -73,19 +102,26 @@ export const fetchUsers = async (options: FetchUsersOptions = {}): Promise<Users
  */
 export const fetchUserById = async (userId: string): Promise<{ data: Profile | null; error: Error | null }> => {
   try {
-    const { data, error } = await supabase
-      .from('profiles')
-      .select('*')
-      .eq('user_id', userId)
-      .single();
+    const headers = await getHeaders();
+    const requestUrl = `${API_URL}/users/${userId}`;
+    
+    debugApiCall(requestUrl, 'GET', { headers });
+    
+    const response = await axios.get(requestUrl, { headers });
+    
+    debugApiCall(requestUrl, 'GET', { headers }, response.data);
       
     return {
-      data,
-      error: error ? new Error(error.message) : null
+      data: response.data.data,
+      error: null
     };
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching user by ID:', error);
-    return { data: null, error: error as Error };
+    debugApiCall(`${API_URL}/users/${userId}`, 'GET', null, null, error);
+    return { 
+      data: null, 
+      error: new Error(error.response?.data?.error || error.message) 
+    };
   }
 };
 
@@ -98,48 +134,28 @@ export const createUser = async (
   userData: Partial<Profile>
 ): Promise<{ success: boolean; error: Error | null; userId?: string }> => {
   try {
-    // Create the user in auth
-    const { data, error } = await auth.admin.createUser({
-      email,
-      password,
-      user_metadata: {
-        first_name: userData.first_name,
-        last_name: userData.last_name,
-        role: userData.role
-      }
-    });
+    const headers = await getHeaders();
+    const requestUrl = `${API_URL}/users`;
+    const requestData = { email, password, ...userData };
     
-    if (error) {
-      return { success: false, error: new Error(error.message) };
-    }
+    debugApiCall(requestUrl, 'POST', { headers, data: requestData });
     
-    if (data.user) {
-      // Create profile in the profiles table
-      const { error: profileError } = await supabase.from('profiles').insert({
-        user_id: data.user.id,
-        first_name: userData.first_name || '',
-        last_name: userData.last_name || '',
-        role: userData.role || 'student',
-        language_preference: userData.language_preference || 'en',
-        department: userData.department,
-        student_id: userData.student_id,
-        faculty_id: userData.faculty_id,
-        bio: userData.bio,
-        avatar_url: userData.avatar_url
-      });
-      
-      if (profileError) {
-        console.error('Error creating profile:', profileError);
-        return { success: false, error: new Error(profileError.message) };
-      }
-      
-      return { success: true, error: null, userId: data.user.id };
-    }
+    const response = await axios.post(requestUrl, requestData, { headers });
     
-    return { success: false, error: new Error('Failed to create user') };
-  } catch (error) {
+    debugApiCall(requestUrl, 'POST', { headers, data: requestData }, response.data);
+    
+    return { 
+      success: true, 
+      error: null, 
+      userId: response.data.userId 
+    };
+  } catch (error: any) {
     console.error('Create user error:', error);
-    return { success: false, error: error as Error };
+    debugApiCall(`${API_URL}/users`, 'POST', null, null, error);
+    return { 
+      success: false, 
+      error: new Error(error.response?.data?.error || error.message) 
+    };
   }
 };
 
@@ -151,44 +167,48 @@ export const updateUser = async (
   userData: Partial<Profile>
 ): Promise<{ success: boolean; error: Error | null }> => {
   try {
-    const { error } = await supabase
-      .from('profiles')
-      .update({
-        ...userData,
-        updated_at: new Date().toISOString()
-      })
-      .eq('user_id', userId);
+    const headers = await getHeaders();
+    const requestUrl = `${API_URL}/users/${userId}`;
+    
+    debugApiCall(requestUrl, 'PUT', { headers, data: userData });
+    
+    const response = await axios.put(requestUrl, userData, { headers });
+    
+    debugApiCall(requestUrl, 'PUT', { headers, data: userData }, response.data);
       
-    return { success: !error, error: error ? new Error(error.message) : null };
-  } catch (error) {
+    return { success: true, error: null };
+  } catch (error: any) {
     console.error('Update user error:', error);
-    return { success: false, error: error as Error };
+    debugApiCall(`${API_URL}/users/${userId}`, 'PUT', null, null, error);
+    return { 
+      success: false, 
+      error: new Error(error.response?.data?.error || error.message) 
+    };
   }
 };
 
 /**
- * Delete a user (sets inactive flag rather than actual deletion)
+ * Delete a user
  */
 export const deleteUser = async (userId: string): Promise<{ success: boolean; error: Error | null }> => {
   try {
-    // In a real application, consider soft-deleting users instead of permanently removing them
-    const { error } = await supabase
-      .from('profiles')
-      .update({ is_active: false, updated_at: new Date().toISOString() })
-      .eq('user_id', userId);
+    const headers = await getHeaders();
+    const requestUrl = `${API_URL}/users/${userId}`;
+    
+    debugApiCall(requestUrl, 'DELETE', { headers });
+    
+    const response = await axios.delete(requestUrl, { headers });
+    
+    debugApiCall(requestUrl, 'DELETE', { headers }, response.data);
 
-    // If you need to actually delete the auth user as well:
-    if (!error) {
-      const { error: authError } = await auth.admin.deleteUser(userId);
-      if (authError) {
-        return { success: false, error: new Error(authError.message) };
-      }
-    }
-      
-    return { success: !error, error: error ? new Error(error.message) : null };
-  } catch (error) {
+    return { success: true, error: null };
+  } catch (error: any) {
     console.error('Delete user error:', error);
-    return { success: false, error: error as Error };
+    debugApiCall(`${API_URL}/users/${userId}`, 'DELETE', null, null, error);
+    return { 
+      success: false, 
+      error: new Error(error.response?.data?.error || error.message) 
+    };
   }
 };
 
@@ -200,15 +220,24 @@ export const resetUserPassword = async (
   newPassword: string
 ): Promise<{ success: boolean; error: Error | null }> => {
   try {
-    const { error } = await auth.admin.updateUserById(
-      userId,
-      { password: newPassword }
-    );
+    const headers = await getHeaders();
+    const requestUrl = `${API_URL}/users/${userId}/reset-password`;
+    const requestData = { newPassword };
+    
+    debugApiCall(requestUrl, 'POST', { headers, data: requestData });
+    
+    const response = await axios.post(requestUrl, requestData, { headers });
+    
+    debugApiCall(requestUrl, 'POST', { headers, data: requestData }, response.data);
       
-    return { success: !error, error: error ? new Error(error.message) : null };
-  } catch (error) {
+    return { success: true, error: null };
+  } catch (error: any) {
     console.error('Reset user password error:', error);
-    return { success: false, error: error as Error };
+    debugApiCall(`${API_URL}/users/${userId}/reset-password`, 'POST', null, null, error);
+    return { 
+      success: false, 
+      error: new Error(error.response?.data?.error || error.message) 
+    };
   }
 };
 
@@ -220,17 +249,23 @@ export const updateUserRole = async (
   role: UserRole
 ): Promise<{ success: boolean; error: Error | null }> => {
   try {
-    const { error } = await supabase
-      .from('profiles')
-      .update({ 
-        role,
-        updated_at: new Date().toISOString()
-      })
-      .eq('user_id', userId);
+    const headers = await getHeaders();
+    const requestUrl = `${API_URL}/users/${userId}/role`;
+    const requestData = { role };
+    
+    debugApiCall(requestUrl, 'POST', { headers, data: requestData });
+    
+    const response = await axios.post(requestUrl, requestData, { headers });
+    
+    debugApiCall(requestUrl, 'POST', { headers, data: requestData }, response.data);
       
-    return { success: !error, error: error ? new Error(error.message) : null };
-  } catch (error) {
+    return { success: true, error: null };
+  } catch (error: any) {
     console.error('Update user role error:', error);
-    return { success: false, error: error as Error };
+    debugApiCall(`${API_URL}/users/${userId}/role`, 'POST', null, null, error);
+    return { 
+      success: false, 
+      error: new Error(error.response?.data?.error || error.message) 
+    };
   }
 };

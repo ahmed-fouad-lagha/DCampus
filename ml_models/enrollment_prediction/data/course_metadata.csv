@@ -1,0 +1,51 @@
+course_id,department,course_level,course_name
+COURSE1000,Social Sciences,400,Senior Social Sciences
+COURSE1001,Biology,100,Basic Biology
+COURSE1002,Mathematics,400,Advanced Topics in Mathematics
+COURSE1003,Arts,100,Basic Arts
+COURSE1004,Engineering,400,Seminar in Engineering
+COURSE1005,Social Sciences,200,Methods of Social Sciences
+COURSE1006,Chemistry,200,Intermediate Chemistry
+COURSE1007,Computer Science,400,Research in Computer Science
+COURSE1008,Arts,200,Methods of Arts
+COURSE1009,Physics,200,Topics in Physics
+COURSE1010,Mathematics,300,Advanced Mathematics
+COURSE1011,Computer Science,100,Principles of Computer Science
+COURSE1012,Biology,300,Theory of Biology
+COURSE1013,Social Sciences,200,Intermediate Social Sciences
+COURSE1014,Social Sciences,300,Analysis of Social Sciences
+COURSE1015,Engineering,100,Principles of Engineering
+COURSE1016,Social Sciences,300,Analysis of Social Sciences
+COURSE1017,Engineering,300,Special Topics in Engineering
+COURSE1018,Business,300,Theory of Business
+COURSE1019,Chemistry,100,Fundamentals of Chemistry
+COURSE1020,Social Sciences,400,Senior Social Sciences
+COURSE1021,Chemistry,300,Theory of Chemistry
+COURSE1022,Business,100,Principles of Business
+COURSE1023,Chemistry,400,Senior Chemistry
+COURSE1024,Social Sciences,200,Topics in Social Sciences
+COURSE1025,Arts,300,Advanced Arts
+COURSE1026,Mathematics,100,Basic Mathematics
+COURSE1027,Computer Science,300,Analysis of Computer Science
+COURSE1028,Computer Science,100,Basic Computer Science
+COURSE1029,Engineering,200,Topics in Engineering
+COURSE1030,Physics,100,Introduction to Physics
+COURSE1031,Engineering,300,Special Topics in Engineering
+COURSE1032,Business,100,Basic Business
+COURSE1033,Physics,400,Research in Physics
+COURSE1034,Computer Science,400,Advanced Topics in Computer Science
+COURSE1035,Chemistry,100,Fundamentals of Chemistry
+COURSE1036,Engineering,400,Senior Engineering
+COURSE1037,Biology,400,Advanced Topics in Biology
+COURSE1038,Engineering,200,Topics in Engineering
+COURSE1039,Mathematics,100,Fundamentals of Mathematics
+COURSE1040,Engineering,400,Seminar in Engineering
+COURSE1041,Arts,300,Special Topics in Arts
+COURSE1042,Business,300,Theory of Business
+COURSE1043,Mathematics,100,Fundamentals of Mathematics
+COURSE1044,Biology,200,Methods of Biology
+COURSE1045,Computer Science,400,Senior Computer Science
+COURSE1046,Social Sciences,200,Topics in Social Sciences
+COURSE1047,Physics,100,Basic Physics
+COURSE1048,Engineering,300,Theory of Engineering
+COURSE1049,Arts,200,Applied Arts
